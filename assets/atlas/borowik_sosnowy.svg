@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320">
+<defs>
+  <radialGradient id="cap" cx="45%" cy="30%" r="75%"><stop offset="0" stop-color="#b76046"/><stop offset=".52" stop-color="#7f382d"/><stop offset="1" stop-color="#4b231f"/></radialGradient>
+  <linearGradient id="stem" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f0dfbf"/><stop offset=".55" stop-color="#d8bd91"/><stop offset="1" stop-color="#ad8b64"/></linearGradient>
+  <filter id="shadow" x="-30%" y="-30%" width="160%" height="180%"><feGaussianBlur stdDeviation="7"/></filter>
+</defs>
+<ellipse cx="160" cy="282" rx="102" ry="19" fill="#000" opacity=".25" filter="url(#shadow)"/>
+<path d="M128 137 C124 172 116 213 111 267 C133 283 187 282 207 265 C201 219 194 175 190 137 Z" fill="url(#stem)"/>
+<path d="M129 154 C145 163 174 164 191 153" fill="none" stroke="#bca077" stroke-width="7" opacity=".42"/>
+<g fill="none" stroke="#9c7e5e" stroke-width="2.2" opacity=".58">
+ <path d="M128 170 L190 240 M187 169 L119 239 M123 189 H194 M118 214 H199 M115 239 H203"/>
+</g>
+<path d="M53 141 C63 71 111 38 162 39 C217 38 268 75 274 143 C235 128 209 139 184 151 C153 166 117 165 88 151 C76 146 66 142 53 141 Z" fill="url(#cap)"/>
+<path d="M57 140 C91 143 113 160 158 161 C204 162 229 140 271 142 C247 165 205 177 160 177 C116 177 78 164 57 140 Z" fill="#d5bd91" opacity=".94"/>
+<path d="M76 108 C107 61 176 48 224 82" fill="none" stroke="#d18468" stroke-width="8" opacity=".35" stroke-linecap="round"/>
+<g stroke="#315b35" stroke-width="4" opacity=".8"><path d="M81 274 l-45 24 M103 279 l-56 8 M217 278 l55 18 M236 271 l38 4"/></g>
+<text x="160" y="309" text-anchor="middle" font-family="Arial,sans-serif" font-size="15" font-weight="700" fill="#dce8de">Borowik sosnowy</text>
+</svg>
