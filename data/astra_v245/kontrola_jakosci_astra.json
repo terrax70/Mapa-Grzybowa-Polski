@@ -1,0 +1,24 @@
+{
+  "liczba_rekordow": 227,
+  "liczba_pol_na_rekord": 53,
+  "statusy": {
+    "J": 110,
+    "W": 85,
+    "S": 25,
+    "T": 7
+  },
+  "ochrona": {
+    "0": 196,
+    "S": 7,
+    "C": 18,
+    "C*": 5,
+    "?": 1
+  },
+  "koncepcje": {
+    "gatunek_w_ujęciu_roboczym": 209,
+    "kompleks_lub_nazwa_zbiorcza": 15,
+    "rekord_nazwowy_wymaga_rozstrzygnięcia": 3
+  },
+  "walidacja_struktury": "OK",
+  "walidacja_merytoryczna_pelna": false
+}
