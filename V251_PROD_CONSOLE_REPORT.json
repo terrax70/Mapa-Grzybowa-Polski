@@ -1,0 +1,23 @@
+{
+  "release": "v251",
+  "status": "PASS",
+  "mode": "production-quiet-console",
+  "scoringChanged": false,
+  "biologyChanged": false,
+  "dataChanged": false,
+  "default": {
+    "consoleLog": "suppressed",
+    "consoleInfo": "suppressed",
+    "consoleDebug": "suppressed",
+    "consoleWarn": "unexpected only",
+    "consoleError": "preserved"
+  },
+  "debugMode": "?debug=1 or localStorage mapaDebug=1",
+  "commands": [
+    "mapaDebugStatus()",
+    "enableMapaDebug()",
+    "disableMapaDebug()"
+  ],
+  "note": "Browser-generated DevTools messages (Intervention / Failed to load resource) cannot be suppressed by page console wrappers.",
+  "backup": "C:\\Users\\Terra\\OneDrive\\Desktop\\FM STRONA INTERNETOWA\\grzyby\\A1. grzyby\\backups_v251\\20260922_202546"
+}
