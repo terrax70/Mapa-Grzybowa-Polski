@@ -1,0 +1,218 @@
+{
+  "format": "MapaGrzybowRadarV3",
+  "formatVersion": 1,
+  "profile": "runtime",
+  "sourceVersion": "radar-builder-v2",
+  "generatedFrom": "../data/radar",
+  "cellKm": 5,
+  "cells": 12770,
+  "species": [
+    {
+      "id": "borowik",
+      "label": "Borowik szlachetny",
+      "scientific": "Boletus edulis"
+    },
+    {
+      "id": "ceglastopory",
+      "label": "Krasnoborowik ceglastopory",
+      "scientific": "Neoboletus luridiformis"
+    },
+    {
+      "id": "ponury",
+      "label": "Modroborowik ponury",
+      "scientific": "Suillellus luridus"
+    },
+    {
+      "id": "kozlarz_babka",
+      "label": "Koźlarz babka",
+      "scientific": "Leccinum scabrum"
+    },
+    {
+      "id": "podgrzybek",
+      "label": "Podgrzybek brunatny",
+      "scientific": "Imleria badia"
+    },
+    {
+      "id": "maslak_zolty",
+      "label": "Maślak żółty",
+      "scientific": "Suillus grevillei"
+    },
+    {
+      "id": "maslak_sitarz",
+      "label": "Maślak sitarz",
+      "scientific": "Suillus bovinus"
+    },
+    {
+      "id": "maslak_pstry",
+      "label": "Maślak pstry",
+      "scientific": "Suillus variegatus"
+    },
+    {
+      "id": "opienka_ciemna",
+      "label": "Opieńka ciemna",
+      "scientific": "Armillaria ostoyae"
+    },
+    {
+      "id": "opienka_miodowa",
+      "label": "Opieńka miodowa właściwa",
+      "scientific": "Armillaria mellea"
+    },
+    {
+      "id": "kurka",
+      "label": "Kurka",
+      "scientific": "Cantharellus cibarius"
+    },
+    {
+      "id": "borowik_usiatkowany",
+      "label": "Borowik usiatkowany",
+      "scientific": "Boletus reticulatus"
+    },
+    {
+      "id": "borowik_sosnowy",
+      "label": "Borowik sosnowy",
+      "scientific": "Boletus pinophilus"
+    },
+    {
+      "id": "maslak_zwyczajny",
+      "label": "Maślak zwyczajny",
+      "scientific": "Suillus luteus"
+    },
+    {
+      "id": "rydz",
+      "label": "Mleczaj rydz",
+      "scientific": "Lactarius deliciosus"
+    },
+    {
+      "id": "kozlarz_czerwony",
+      "label": "Koźlarz czerwony",
+      "scientific": "Leccinum aurantiacum"
+    },
+    {
+      "id": "kozlarz_pomaranczowozolty",
+      "label": "Koźlarz pomarańczowożółty",
+      "scientific": "Leccinum versipelle"
+    },
+    {
+      "id": "mleczaj_swierkowy",
+      "label": "Mleczaj świerkowy",
+      "scientific": "Lactarius deterrimus"
+    },
+    {
+      "id": "siedzun_sosnowy",
+      "label": "Siedzuń sosnowy",
+      "scientific": "Sparassis crispa"
+    },
+    {
+      "id": "kozlarz_grabowy",
+      "label": "Koźlarz grabowy",
+      "scientific": "Leccinellum pseudoscabrum"
+    },
+    {
+      "id": "maslak_ziarnisty",
+      "label": "Maślak ziarnisty",
+      "scientific": "Suillus granulatus"
+    },
+    {
+      "id": "pieprznik_trabkowy",
+      "label": "Pieprznik trąbkowy",
+      "scientific": "Craterellus tubaeformis"
+    },
+    {
+      "id": "lejkowiec_dety",
+      "label": "Lejkowiec dęty",
+      "scientific": "Craterellus cornucopioides"
+    },
+    {
+      "id": "kolczak_oblaczasty",
+      "label": "Kolczak obłączasty",
+      "scientific": "Hydnum repandum"
+    },
+    {
+      "id": "podgrzybek_zajaczek",
+      "label": "Podgrzybek zajączek",
+      "scientific": "Xerocomus subtomentosus"
+    },
+    {
+      "id": "gaska_nieksztaltna",
+      "label": "Gąska niekształtna",
+      "scientific": "Tricholoma portentosum"
+    },
+    {
+      "id": "boczniak_ostrygowaty",
+      "label": "Boczniak ostrygowaty",
+      "scientific": "Pleurotus ostreatus"
+    },
+    {
+      "id": "kozlarz_debowy",
+      "label": "Koźlarz dębowy",
+      "scientific": "Leccinum quercinum"
+    },
+    {
+      "id": "kozlarz_sosnowy",
+      "label": "Koźlarz sosnowy",
+      "scientific": "Leccinum vulpinum"
+    },
+    {
+      "id": "golabek_zielonawy",
+      "label": "Gołąbek zielonawy",
+      "scientific": "Russula virescens"
+    },
+    {
+      "id": "golabek_bagienny",
+      "label": "Gołąbek błotny",
+      "scientific": "Russula paludosa"
+    }
+  ],
+  "unsupportedSpecies": [
+    {
+      "id": "kania",
+      "label": "Czubajka kania",
+      "ecology": "edge",
+      "reason": "BDL alone does not describe open/edge habitat; requires OSM/open-habitat grid"
+    },
+    {
+      "id": "kania_gwiazdzista",
+      "label": "Czubajka gwieździsta",
+      "ecology": "edge",
+      "reason": "BDL alone does not describe open/edge habitat; requires OSM/open-habitat grid"
+    },
+    {
+      "id": "czernidlak",
+      "label": "Czernidłak kołpakowaty",
+      "ecology": "grassland",
+      "reason": "BDL alone does not describe open/edge habitat; requires OSM/open-habitat grid"
+    },
+    {
+      "id": "pieczarka_polna",
+      "label": "Pieczarka łąkowa",
+      "ecology": "grassland",
+      "reason": "BDL alone does not describe open/edge habitat; requires OSM/open-habitat grid"
+    },
+    {
+      "id": "purchawka_oczkowana",
+      "label": "Purchawka oczkowana",
+      "ecology": "grassland",
+      "reason": "BDL alone does not describe open/edge habitat; requires OSM/open-habitat grid"
+    },
+    {
+      "id": "twardzioszek_przydrozny",
+      "label": "Twardzioszek przydrożny",
+      "ecology": "grassland",
+      "reason": "BDL alone does not describe open/edge habitat; requires OSM/open-habitat grid"
+    }
+  ],
+  "files": {
+    "base": "base.bin",
+    "overview": "overview.bin",
+    "speciesDir": "species/"
+  },
+  "encoding": {
+    "bbox": "int32 microdegrees / 1e6",
+    "forestHa": "uint16 / 10",
+    "coverage": "uint16 / 1000",
+    "score": "uint16 / 100",
+    "goodShare": "uint16 / 1000",
+    "bestSpecies": "uint8 index into species; 255 = none",
+    "diversity": "uint8"
+  }
+}

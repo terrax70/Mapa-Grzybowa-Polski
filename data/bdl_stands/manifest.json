@@ -1,0 +1,98 @@
+{
+  "version": "v239-exact-bdl-stands",
+  "packs": [
+    {
+      "district": "02-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_24_2026.min.json",
+      "stands": 3731,
+      "multiSpecies": 3628
+    }
+  ],
+  "targetCheck": {
+    "address": "02-24-1-10-128-c-00",
+    "composition": [
+      {
+        "tree": "SO",
+        "age": 71,
+        "part": "5",
+        "rank": 1
+      },
+      {
+        "tree": "BRZ",
+        "age": 71,
+        "part": "3",
+        "rank": 2
+      },
+      {
+        "tree": "GB",
+        "age": 56,
+        "part": "2",
+        "rank": 3
+      },
+      {
+        "tree": "DB",
+        "age": 151,
+        "part": "MJS",
+        "rank": 4
+      },
+      {
+        "tree": "DB",
+        "age": 91,
+        "part": "MJS",
+        "rank": 5
+      },
+      {
+        "tree": "OS",
+        "age": 71,
+        "part": "MJS",
+        "rank": 6
+      },
+      {
+        "tree": "DB.C",
+        "age": 71,
+        "part": "MJS",
+        "rank": 7
+      },
+      {
+        "tree": "DB",
+        "age": 71,
+        "part": "MJS",
+        "rank": 8
+      },
+      {
+        "tree": "MD",
+        "age": 71,
+        "part": "MJS",
+        "rank": 9
+      },
+      {
+        "tree": "ŚW",
+        "age": 71,
+        "part": "MJS",
+        "rank": 10
+      },
+      {
+        "tree": "GB",
+        "age": 71,
+        "part": "MJS",
+        "rank": 11
+      },
+      {
+        "tree": "GB",
+        "age": 31,
+        "part": "MJS",
+        "rank": 12
+      }
+    ]
+  },
+  "sourceMetadata": [
+    "RDSF Code: 02",
+    "RDSF Name: Katowice                      ",
+    "Forest District Code:  24",
+    "Forest District Name:  Prószków                      ",
+    "Year: 2026",
+    "Source of data: Forest Data Bank",
+    "Preparation date: 2026-06-23"
+  ]
+}

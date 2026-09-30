@@ -1,0 +1,21 @@
+{
+  "profile": "runtime",
+  "cells": 12770,
+  "species": 31,
+  "originalBytes": 47693279,
+  "packedBytes": 2739147,
+  "originalMiB": 45.484,
+  "packedMiB": 2.612,
+  "reductionPct": 94.26,
+  "ratio": 17.41,
+  "baseBytes": 306496,
+  "overviewBytes": 51094,
+  "speciesTotalBytes": 2375716,
+  "speciesFileBytesTypical": 76636,
+  "notes": [
+    "runtime zachowuje dokładnie pola odczytywane obecnie przez nationalRadar* w index.html.",
+    "full zachowuje dodatkowo species row[9..11].",
+    "Geometria, forestHa i coverage są zapisywane raz zamiast 31 razy.",
+    "Nie jest to zmiana biologii ani scoringu."
+  ]
+}
