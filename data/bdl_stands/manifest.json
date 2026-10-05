@@ -1,98 +1,2591 @@
 {
-  "version": "v239-exact-bdl-stands",
+  "version": "v260-national-source-index",
   "packs": [
+    {
+      "district": "01-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_01_2026.min.json.gz",
+      "stands": 7913
+    },
+    {
+      "district": "01-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_02_2026.min.json.gz",
+      "stands": 3537
+    },
+    {
+      "district": "01-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_03_2026.min.json.gz",
+      "stands": 7290
+    },
+    {
+      "district": "01-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_04_2026.min.json.gz",
+      "stands": 7346
+    },
+    {
+      "district": "01-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_05_2026.min.json.gz",
+      "stands": 4632
+    },
+    {
+      "district": "01-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_06_2026.min.json.gz",
+      "stands": 6821
+    },
+    {
+      "district": "01-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_07_2026.min.json.gz",
+      "stands": 5532
+    },
+    {
+      "district": "01-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_08_2026.min.json.gz",
+      "stands": 5403
+    },
+    {
+      "district": "01-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_09_2026.min.json.gz",
+      "stands": 8097
+    },
+    {
+      "district": "01-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_10_2026.min.json.gz",
+      "stands": 6150
+    },
+    {
+      "district": "01-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_11_2026.min.json.gz",
+      "stands": 7413
+    },
+    {
+      "district": "01-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_12_2026.min.json.gz",
+      "stands": 2311
+    },
+    {
+      "district": "01-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_13_2026.min.json.gz",
+      "stands": 3948
+    },
+    {
+      "district": "01-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_14_2026.min.json.gz",
+      "stands": 5794
+    },
+    {
+      "district": "01-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_15_2026.min.json.gz",
+      "stands": 4286
+    },
+    {
+      "district": "01-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_16_2026.min.json.gz",
+      "stands": 7368
+    },
+    {
+      "district": "01-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_17_2026.min.json.gz",
+      "stands": 4317
+    },
+    {
+      "district": "01-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_18_2026.min.json.gz",
+      "stands": 7840
+    },
+    {
+      "district": "01-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_19_2026.min.json.gz",
+      "stands": 7055
+    },
+    {
+      "district": "01-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_20_2026.min.json.gz",
+      "stands": 9544
+    },
+    {
+      "district": "01-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_21_2026.min.json.gz",
+      "stands": 6488
+    },
+    {
+      "district": "01-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_22_2026.min.json.gz",
+      "stands": 3796
+    },
+    {
+      "district": "01-23",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_23_2026.min.json.gz",
+      "stands": 3119
+    },
+    {
+      "district": "01-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_24_2026.min.json.gz",
+      "stands": 3928
+    },
+    {
+      "district": "01-25",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_25_2026.min.json.gz",
+      "stands": 4930
+    },
+    {
+      "district": "01-26",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_26_2026.min.json.gz",
+      "stands": 4242
+    },
+    {
+      "district": "01-27",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_27_2026.min.json.gz",
+      "stands": 5561
+    },
+    {
+      "district": "01-28",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_28_2026.min.json.gz",
+      "stands": 3547
+    },
+    {
+      "district": "01-29",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_29_2026.min.json.gz",
+      "stands": 3924
+    },
+    {
+      "district": "01-30",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_30_2026.min.json.gz",
+      "stands": 10515
+    },
+    {
+      "district": "01-32",
+      "year": 2026,
+      "file": "./data/bdl_stands/01_32_2026.min.json.gz",
+      "stands": 4082
+    },
+    {
+      "district": "02-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_01_2026.min.json.gz",
+      "stands": 2388
+    },
+    {
+      "district": "02-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_02_2026.min.json.gz",
+      "stands": 2053
+    },
+    {
+      "district": "02-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_03_2026.min.json.gz",
+      "stands": 4653
+    },
+    {
+      "district": "02-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_04_2026.min.json.gz",
+      "stands": 4262
+    },
+    {
+      "district": "02-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_05_2026.min.json.gz",
+      "stands": 8251
+    },
+    {
+      "district": "02-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_06_2026.min.json.gz",
+      "stands": 4973
+    },
+    {
+      "district": "02-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_07_2026.min.json.gz",
+      "stands": 5271
+    },
+    {
+      "district": "02-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_08_2026.min.json.gz",
+      "stands": 2011
+    },
+    {
+      "district": "02-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_09_2026.min.json.gz",
+      "stands": 4380
+    },
+    {
+      "district": "02-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_10_2026.min.json.gz",
+      "stands": 2680
+    },
+    {
+      "district": "02-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_11_2026.min.json.gz",
+      "stands": 4900
+    },
+    {
+      "district": "02-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_12_2026.min.json.gz",
+      "stands": 4343
+    },
+    {
+      "district": "02-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_13_2026.min.json.gz",
+      "stands": 5514
+    },
+    {
+      "district": "02-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_14_2026.min.json.gz",
+      "stands": 5231
+    },
+    {
+      "district": "02-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_15_2026.min.json.gz",
+      "stands": 5032
+    },
+    {
+      "district": "02-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_16_2026.min.json.gz",
+      "stands": 6431
+    },
+    {
+      "district": "02-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_18_2026.min.json.gz",
+      "stands": 5868
+    },
+    {
+      "district": "02-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_19_2026.min.json.gz",
+      "stands": 5532
+    },
+    {
+      "district": "02-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_20_2026.min.json.gz",
+      "stands": 5016
+    },
+    {
+      "district": "02-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_21_2026.min.json.gz",
+      "stands": 5943
+    },
+    {
+      "district": "02-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_22_2026.min.json.gz",
+      "stands": 3516
+    },
+    {
+      "district": "02-23",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_23_2026.min.json.gz",
+      "stands": 3536
+    },
     {
       "district": "02-24",
       "year": 2026,
-      "file": "./data/bdl_stands/02_24_2026.min.json",
-      "stands": 3731,
-      "multiSpecies": 3628
+      "file": "./data/bdl_stands/02_24_2026.min.json.gz",
+      "stands": 3731
+    },
+    {
+      "district": "02-25",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_25_2026.min.json.gz",
+      "stands": 5074
+    },
+    {
+      "district": "02-26",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_26_2026.min.json.gz",
+      "stands": 3660
+    },
+    {
+      "district": "02-27",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_27_2026.min.json.gz",
+      "stands": 6384
+    },
+    {
+      "district": "02-28",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_28_2026.min.json.gz",
+      "stands": 4876
+    },
+    {
+      "district": "02-29",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_29_2026.min.json.gz",
+      "stands": 5641
+    },
+    {
+      "district": "02-30",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_30_2026.min.json.gz",
+      "stands": 2024
+    },
+    {
+      "district": "02-31",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_31_2026.min.json.gz",
+      "stands": 5196
+    },
+    {
+      "district": "02-32",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_32_2026.min.json.gz",
+      "stands": 4306
+    },
+    {
+      "district": "02-33",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_33_2026.min.json.gz",
+      "stands": 5071
+    },
+    {
+      "district": "02-34",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_34_2026.min.json.gz",
+      "stands": 1616
+    },
+    {
+      "district": "02-35",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_35_2026.min.json.gz",
+      "stands": 3092
+    },
+    {
+      "district": "02-36",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_36_2026.min.json.gz",
+      "stands": 1268
+    },
+    {
+      "district": "02-37",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_37_2026.min.json.gz",
+      "stands": 1658
+    },
+    {
+      "district": "02-38",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_38_2026.min.json.gz",
+      "stands": 6086
+    },
+    {
+      "district": "02-40",
+      "year": 2026,
+      "file": "./data/bdl_stands/02_40_2026.min.json.gz",
+      "stands": 5933
+    },
+    {
+      "district": "03-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_02_2026.min.json.gz",
+      "stands": 1708
+    },
+    {
+      "district": "03-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_03_2026.min.json.gz",
+      "stands": 3505
+    },
+    {
+      "district": "03-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_04_2026.min.json.gz",
+      "stands": 2363
+    },
+    {
+      "district": "03-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_05_2026.min.json.gz",
+      "stands": 2332
+    },
+    {
+      "district": "03-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_06_2026.min.json.gz",
+      "stands": 1415
+    },
+    {
+      "district": "03-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_09_2026.min.json.gz",
+      "stands": 900
+    },
+    {
+      "district": "03-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_10_2026.min.json.gz",
+      "stands": 2232
+    },
+    {
+      "district": "03-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_11_2026.min.json.gz",
+      "stands": 1302
+    },
+    {
+      "district": "03-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_13_2026.min.json.gz",
+      "stands": 2038
+    },
+    {
+      "district": "03-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_14_2026.min.json.gz",
+      "stands": 2041
+    },
+    {
+      "district": "03-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_15_2026.min.json.gz",
+      "stands": 2176
+    },
+    {
+      "district": "03-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_16_2026.min.json.gz",
+      "stands": 1319
+    },
+    {
+      "district": "03-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_17_2026.min.json.gz",
+      "stands": 2103
+    },
+    {
+      "district": "03-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_18_2026.min.json.gz",
+      "stands": 699
+    },
+    {
+      "district": "03-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_21_2026.min.json.gz",
+      "stands": 1963
+    },
+    {
+      "district": "03-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/03_24_2026.min.json.gz",
+      "stands": 1228
+    },
+    {
+      "district": "04-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_01_2026.min.json.gz",
+      "stands": 2733
+    },
+    {
+      "district": "04-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_02_2026.min.json.gz",
+      "stands": 3929
+    },
+    {
+      "district": "04-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_03_2026.min.json.gz",
+      "stands": 3142
+    },
+    {
+      "district": "04-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_04_2026.min.json.gz",
+      "stands": 2120
+    },
+    {
+      "district": "04-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_05_2026.min.json.gz",
+      "stands": 2151
+    },
+    {
+      "district": "04-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_06_2026.min.json.gz",
+      "stands": 2329
+    },
+    {
+      "district": "04-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_07_2026.min.json.gz",
+      "stands": 1605
+    },
+    {
+      "district": "04-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_08_2026.min.json.gz",
+      "stands": 3353
+    },
+    {
+      "district": "04-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_09_2026.min.json.gz",
+      "stands": 2146
+    },
+    {
+      "district": "04-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_10_2026.min.json.gz",
+      "stands": 2663
+    },
+    {
+      "district": "04-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_11_2026.min.json.gz",
+      "stands": 2041
+    },
+    {
+      "district": "04-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_12_2026.min.json.gz",
+      "stands": 2108
+    },
+    {
+      "district": "04-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_13_2026.min.json.gz",
+      "stands": 2166
+    },
+    {
+      "district": "04-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_14_2026.min.json.gz",
+      "stands": 2326
+    },
+    {
+      "district": "04-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_15_2026.min.json.gz",
+      "stands": 5623
+    },
+    {
+      "district": "04-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_16_2026.min.json.gz",
+      "stands": 1811
+    },
+    {
+      "district": "04-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_17_2026.min.json.gz",
+      "stands": 2260
+    },
+    {
+      "district": "04-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_18_2026.min.json.gz",
+      "stands": 4079
+    },
+    {
+      "district": "04-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_19_2026.min.json.gz",
+      "stands": 2515
+    },
+    {
+      "district": "04-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_20_2026.min.json.gz",
+      "stands": 2465
+    },
+    {
+      "district": "04-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_21_2026.min.json.gz",
+      "stands": 3693
+    },
+    {
+      "district": "04-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_22_2026.min.json.gz",
+      "stands": 1927
+    },
+    {
+      "district": "04-23",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_23_2026.min.json.gz",
+      "stands": 1000
+    },
+    {
+      "district": "04-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_24_2026.min.json.gz",
+      "stands": 3270
+    },
+    {
+      "district": "04-27",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_27_2026.min.json.gz",
+      "stands": 4933
+    },
+    {
+      "district": "04-28",
+      "year": 2026,
+      "file": "./data/bdl_stands/04_28_2026.min.json.gz",
+      "stands": 4414
+    },
+    {
+      "district": "05-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_01_2026.min.json.gz",
+      "stands": 4850
+    },
+    {
+      "district": "05-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_02_2026.min.json.gz",
+      "stands": 8542
+    },
+    {
+      "district": "05-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_03_2026.min.json.gz",
+      "stands": 5533
+    },
+    {
+      "district": "05-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_04_2026.min.json.gz",
+      "stands": 6659
+    },
+    {
+      "district": "05-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_05_2026.min.json.gz",
+      "stands": 4630
+    },
+    {
+      "district": "05-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_07_2026.min.json.gz",
+      "stands": 6825
+    },
+    {
+      "district": "05-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_08_2026.min.json.gz",
+      "stands": 5819
+    },
+    {
+      "district": "05-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_09_2026.min.json.gz",
+      "stands": 5016
+    },
+    {
+      "district": "05-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_10_2026.min.json.gz",
+      "stands": 4396
+    },
+    {
+      "district": "05-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_11_2026.min.json.gz",
+      "stands": 7096
+    },
+    {
+      "district": "05-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_14_2026.min.json.gz",
+      "stands": 7009
+    },
+    {
+      "district": "05-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_16_2026.min.json.gz",
+      "stands": 6182
+    },
+    {
+      "district": "05-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_17_2026.min.json.gz",
+      "stands": 2388
+    },
+    {
+      "district": "05-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_18_2026.min.json.gz",
+      "stands": 6381
+    },
+    {
+      "district": "05-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_19_2026.min.json.gz",
+      "stands": 6094
+    },
+    {
+      "district": "05-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_20_2026.min.json.gz",
+      "stands": 4332
+    },
+    {
+      "district": "05-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_21_2026.min.json.gz",
+      "stands": 4611
+    },
+    {
+      "district": "05-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_22_2026.min.json.gz",
+      "stands": 4002
+    },
+    {
+      "district": "05-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_24_2026.min.json.gz",
+      "stands": 6349
+    },
+    {
+      "district": "05-26",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_26_2026.min.json.gz",
+      "stands": 3542
+    },
+    {
+      "district": "05-27",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_27_2026.min.json.gz",
+      "stands": 3806
+    },
+    {
+      "district": "05-28",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_28_2026.min.json.gz",
+      "stands": 5189
+    },
+    {
+      "district": "05-29",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_29_2026.min.json.gz",
+      "stands": 8920
+    },
+    {
+      "district": "05-30",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_30_2026.min.json.gz",
+      "stands": 7445
+    },
+    {
+      "district": "05-31",
+      "year": 2026,
+      "file": "./data/bdl_stands/05_31_2026.min.json.gz",
+      "stands": 9856
+    },
+    {
+      "district": "06-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_01_2026.min.json.gz",
+      "stands": 7435
+    },
+    {
+      "district": "06-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_02_2026.min.json.gz",
+      "stands": 3622
+    },
+    {
+      "district": "06-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_04_2026.min.json.gz",
+      "stands": 4138
+    },
+    {
+      "district": "06-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_05_2026.min.json.gz",
+      "stands": 2834
+    },
+    {
+      "district": "06-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_06_2026.min.json.gz",
+      "stands": 6479
+    },
+    {
+      "district": "06-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_08_2026.min.json.gz",
+      "stands": 3391
+    },
+    {
+      "district": "06-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_09_2026.min.json.gz",
+      "stands": 6163
+    },
+    {
+      "district": "06-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_10_2026.min.json.gz",
+      "stands": 6375
+    },
+    {
+      "district": "06-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_11_2026.min.json.gz",
+      "stands": 6664
+    },
+    {
+      "district": "06-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_12_2026.min.json.gz",
+      "stands": 4423
+    },
+    {
+      "district": "06-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_14_2026.min.json.gz",
+      "stands": 3570
+    },
+    {
+      "district": "06-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_15_2026.min.json.gz",
+      "stands": 6711
+    },
+    {
+      "district": "06-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_17_2026.min.json.gz",
+      "stands": 5075
+    },
+    {
+      "district": "06-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_18_2026.min.json.gz",
+      "stands": 4753
+    },
+    {
+      "district": "06-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_19_2026.min.json.gz",
+      "stands": 4172
+    },
+    {
+      "district": "06-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_20_2026.min.json.gz",
+      "stands": 6781
+    },
+    {
+      "district": "06-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_21_2026.min.json.gz",
+      "stands": 4989
+    },
+    {
+      "district": "06-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_24_2026.min.json.gz",
+      "stands": 4992
+    },
+    {
+      "district": "06-25",
+      "year": 2026,
+      "file": "./data/bdl_stands/06_25_2026.min.json.gz",
+      "stands": 7502
+    },
+    {
+      "district": "07-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_01_2026.min.json.gz",
+      "stands": 5928
+    },
+    {
+      "district": "07-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_02_2026.min.json.gz",
+      "stands": 4206
+    },
+    {
+      "district": "07-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_03_2026.min.json.gz",
+      "stands": 5422
+    },
+    {
+      "district": "07-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_04_2026.min.json.gz",
+      "stands": 5674
+    },
+    {
+      "district": "07-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_05_2026.min.json.gz",
+      "stands": 5270
+    },
+    {
+      "district": "07-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_06_2026.min.json.gz",
+      "stands": 6746
+    },
+    {
+      "district": "07-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_07_2026.min.json.gz",
+      "stands": 6646
+    },
+    {
+      "district": "07-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_08_2026.min.json.gz",
+      "stands": 7678
+    },
+    {
+      "district": "07-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_09_2026.min.json.gz",
+      "stands": 5938
+    },
+    {
+      "district": "07-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_10_2026.min.json.gz",
+      "stands": 7072
+    },
+    {
+      "district": "07-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_11_2026.min.json.gz",
+      "stands": 6263
+    },
+    {
+      "district": "07-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_12_2026.min.json.gz",
+      "stands": 4595
+    },
+    {
+      "district": "07-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_13_2026.min.json.gz",
+      "stands": 5763
+    },
+    {
+      "district": "07-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_14_2026.min.json.gz",
+      "stands": 7352
+    },
+    {
+      "district": "07-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_15_2026.min.json.gz",
+      "stands": 4968
+    },
+    {
+      "district": "07-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_16_2026.min.json.gz",
+      "stands": 7275
+    },
+    {
+      "district": "07-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_17_2026.min.json.gz",
+      "stands": 4375
+    },
+    {
+      "district": "07-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_18_2026.min.json.gz",
+      "stands": 6272
+    },
+    {
+      "district": "07-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_19_2026.min.json.gz",
+      "stands": 4586
+    },
+    {
+      "district": "07-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_22_2026.min.json.gz",
+      "stands": 4336
+    },
+    {
+      "district": "07-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_24_2026.min.json.gz",
+      "stands": 6463
+    },
+    {
+      "district": "07-25",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_25_2026.min.json.gz",
+      "stands": 5970
+    },
+    {
+      "district": "07-26",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_26_2026.min.json.gz",
+      "stands": 6519
+    },
+    {
+      "district": "07-27",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_27_2026.min.json.gz",
+      "stands": 5767
+    },
+    {
+      "district": "07-28",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_28_2026.min.json.gz",
+      "stands": 5896
+    },
+    {
+      "district": "07-29",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_29_2026.min.json.gz",
+      "stands": 6022
+    },
+    {
+      "district": "07-30",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_30_2026.min.json.gz",
+      "stands": 6092
+    },
+    {
+      "district": "07-31",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_31_2026.min.json.gz",
+      "stands": 7655
+    },
+    {
+      "district": "07-32",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_32_2026.min.json.gz",
+      "stands": 7678
+    },
+    {
+      "district": "07-34",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_34_2026.min.json.gz",
+      "stands": 5775
+    },
+    {
+      "district": "07-35",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_35_2026.min.json.gz",
+      "stands": 4191
+    },
+    {
+      "district": "07-36",
+      "year": 2026,
+      "file": "./data/bdl_stands/07_36_2026.min.json.gz",
+      "stands": 4069
+    },
+    {
+      "district": "08-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_01_2026.min.json.gz",
+      "stands": 5475
+    },
+    {
+      "district": "08-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_02_2026.min.json.gz",
+      "stands": 5522
+    },
+    {
+      "district": "08-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_03_2026.min.json.gz",
+      "stands": 4893
+    },
+    {
+      "district": "08-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_04_2026.min.json.gz",
+      "stands": 6629
+    },
+    {
+      "district": "08-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_05_2026.min.json.gz",
+      "stands": 4388
+    },
+    {
+      "district": "08-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_06_2026.min.json.gz",
+      "stands": 3760
+    },
+    {
+      "district": "08-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_07_2026.min.json.gz",
+      "stands": 5461
+    },
+    {
+      "district": "08-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_08_2026.min.json.gz",
+      "stands": 4681
+    },
+    {
+      "district": "08-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_09_2026.min.json.gz",
+      "stands": 5496
+    },
+    {
+      "district": "08-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_10_2026.min.json.gz",
+      "stands": 7015
+    },
+    {
+      "district": "08-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_11_2026.min.json.gz",
+      "stands": 4854
+    },
+    {
+      "district": "08-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_12_2026.min.json.gz",
+      "stands": 5187
+    },
+    {
+      "district": "08-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_13_2026.min.json.gz",
+      "stands": 4795
+    },
+    {
+      "district": "08-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_14_2026.min.json.gz",
+      "stands": 5680
+    },
+    {
+      "district": "08-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_15_2026.min.json.gz",
+      "stands": 5064
+    },
+    {
+      "district": "08-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_16_2026.min.json.gz",
+      "stands": 4644
+    },
+    {
+      "district": "08-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_17_2026.min.json.gz",
+      "stands": 4890
+    },
+    {
+      "district": "08-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_18_2026.min.json.gz",
+      "stands": 4314
+    },
+    {
+      "district": "08-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_20_2026.min.json.gz",
+      "stands": 4511
+    },
+    {
+      "district": "08-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/08_21_2026.min.json.gz",
+      "stands": 3873
+    },
+    {
+      "district": "09-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_01_2026.min.json.gz",
+      "stands": 6769
+    },
+    {
+      "district": "09-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_02_2026.min.json.gz",
+      "stands": 4458
+    },
+    {
+      "district": "09-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_03_2026.min.json.gz",
+      "stands": 4677
+    },
+    {
+      "district": "09-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_04_2026.min.json.gz",
+      "stands": 7119
+    },
+    {
+      "district": "09-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_05_2026.min.json.gz",
+      "stands": 9120
+    },
+    {
+      "district": "09-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_06_2026.min.json.gz",
+      "stands": 8452
+    },
+    {
+      "district": "09-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_07_2026.min.json.gz",
+      "stands": 7936
+    },
+    {
+      "district": "09-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_08_2026.min.json.gz",
+      "stands": 4258
+    },
+    {
+      "district": "09-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_09_2026.min.json.gz",
+      "stands": 4129
+    },
+    {
+      "district": "09-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_10_2026.min.json.gz",
+      "stands": 3630
+    },
+    {
+      "district": "09-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_11_2026.min.json.gz",
+      "stands": 4445
+    },
+    {
+      "district": "09-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_12_2026.min.json.gz",
+      "stands": 5326
+    },
+    {
+      "district": "09-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_13_2026.min.json.gz",
+      "stands": 6063
+    },
+    {
+      "district": "09-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_14_2026.min.json.gz",
+      "stands": 5988
+    },
+    {
+      "district": "09-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_15_2026.min.json.gz",
+      "stands": 6365
+    },
+    {
+      "district": "09-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_16_2026.min.json.gz",
+      "stands": 6854
+    },
+    {
+      "district": "09-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_17_2026.min.json.gz",
+      "stands": 5141
+    },
+    {
+      "district": "09-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_18_2026.min.json.gz",
+      "stands": 8607
+    },
+    {
+      "district": "09-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_19_2026.min.json.gz",
+      "stands": 6467
+    },
+    {
+      "district": "09-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_20_2026.min.json.gz",
+      "stands": 4531
+    },
+    {
+      "district": "09-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_21_2026.min.json.gz",
+      "stands": 4676
+    },
+    {
+      "district": "09-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_22_2026.min.json.gz",
+      "stands": 4376
+    },
+    {
+      "district": "09-23",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_23_2026.min.json.gz",
+      "stands": 3760
+    },
+    {
+      "district": "09-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_24_2026.min.json.gz",
+      "stands": 4357
+    },
+    {
+      "district": "09-25",
+      "year": 2026,
+      "file": "./data/bdl_stands/09_25_2026.min.json.gz",
+      "stands": 4285
+    },
+    {
+      "district": "10-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_01_2026.min.json.gz",
+      "stands": 4731
+    },
+    {
+      "district": "10-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_02_2026.min.json.gz",
+      "stands": 5498
+    },
+    {
+      "district": "10-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_03_2026.min.json.gz",
+      "stands": 5386
+    },
+    {
+      "district": "10-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_04_2026.min.json.gz",
+      "stands": 5268
+    },
+    {
+      "district": "10-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_05_2026.min.json.gz",
+      "stands": 5504
+    },
+    {
+      "district": "10-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_06_2026.min.json.gz",
+      "stands": 6476
+    },
+    {
+      "district": "10-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_07_2026.min.json.gz",
+      "stands": 7056
+    },
+    {
+      "district": "10-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_08_2026.min.json.gz",
+      "stands": 5864
+    },
+    {
+      "district": "10-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_09_2026.min.json.gz",
+      "stands": 3484
+    },
+    {
+      "district": "10-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_10_2026.min.json.gz",
+      "stands": 7136
+    },
+    {
+      "district": "10-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_11_2026.min.json.gz",
+      "stands": 6435
+    },
+    {
+      "district": "10-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_12_2026.min.json.gz",
+      "stands": 7116
+    },
+    {
+      "district": "10-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_13_2026.min.json.gz",
+      "stands": 6545
+    },
+    {
+      "district": "10-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_14_2026.min.json.gz",
+      "stands": 6341
+    },
+    {
+      "district": "10-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_15_2026.min.json.gz",
+      "stands": 4535
+    },
+    {
+      "district": "10-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_16_2026.min.json.gz",
+      "stands": 6831
+    },
+    {
+      "district": "10-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_17_2026.min.json.gz",
+      "stands": 5137
+    },
+    {
+      "district": "10-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_18_2026.min.json.gz",
+      "stands": 6579
+    },
+    {
+      "district": "10-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_19_2026.min.json.gz",
+      "stands": 7020
+    },
+    {
+      "district": "10-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_20_2026.min.json.gz",
+      "stands": 3932
+    },
+    {
+      "district": "10-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_21_2026.min.json.gz",
+      "stands": 4509
+    },
+    {
+      "district": "10-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_22_2026.min.json.gz",
+      "stands": 6979
+    },
+    {
+      "district": "10-23",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_23_2026.min.json.gz",
+      "stands": 6388
+    },
+    {
+      "district": "10-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_24_2026.min.json.gz",
+      "stands": 7327
+    },
+    {
+      "district": "10-25",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_25_2026.min.json.gz",
+      "stands": 6851
+    },
+    {
+      "district": "10-26",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_26_2026.min.json.gz",
+      "stands": 4941
+    },
+    {
+      "district": "10-27",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_27_2026.min.json.gz",
+      "stands": 6858
+    },
+    {
+      "district": "10-28",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_28_2026.min.json.gz",
+      "stands": 4979
+    },
+    {
+      "district": "10-29",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_29_2026.min.json.gz",
+      "stands": 7866
+    },
+    {
+      "district": "10-30",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_30_2026.min.json.gz",
+      "stands": 7179
+    },
+    {
+      "district": "10-31",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_31_2026.min.json.gz",
+      "stands": 4655
+    },
+    {
+      "district": "10-32",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_32_2026.min.json.gz",
+      "stands": 5442
+    },
+    {
+      "district": "10-33",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_33_2026.min.json.gz",
+      "stands": 5183
+    },
+    {
+      "district": "10-34",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_34_2026.min.json.gz",
+      "stands": 4727
+    },
+    {
+      "district": "10-35",
+      "year": 2026,
+      "file": "./data/bdl_stands/10_35_2026.min.json.gz",
+      "stands": 4855
+    },
+    {
+      "district": "11-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_01_2026.min.json.gz",
+      "stands": 7016
+    },
+    {
+      "district": "11-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_02_2026.min.json.gz",
+      "stands": 5538
+    },
+    {
+      "district": "11-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_03_2026.min.json.gz",
+      "stands": 6187
+    },
+    {
+      "district": "11-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_04_2026.min.json.gz",
+      "stands": 4685
+    },
+    {
+      "district": "11-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_05_2026.min.json.gz",
+      "stands": 6826
+    },
+    {
+      "district": "11-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_06_2026.min.json.gz",
+      "stands": 6547
+    },
+    {
+      "district": "11-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_07_2026.min.json.gz",
+      "stands": 6400
+    },
+    {
+      "district": "11-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_08_2026.min.json.gz",
+      "stands": 4012
+    },
+    {
+      "district": "11-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_09_2026.min.json.gz",
+      "stands": 7372
+    },
+    {
+      "district": "11-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_10_2026.min.json.gz",
+      "stands": 6608
+    },
+    {
+      "district": "11-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_11_2026.min.json.gz",
+      "stands": 5044
+    },
+    {
+      "district": "11-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_12_2026.min.json.gz",
+      "stands": 5195
+    },
+    {
+      "district": "11-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_13_2026.min.json.gz",
+      "stands": 5747
+    },
+    {
+      "district": "11-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_14_2026.min.json.gz",
+      "stands": 6510
+    },
+    {
+      "district": "11-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_15_2026.min.json.gz",
+      "stands": 6950
+    },
+    {
+      "district": "11-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_16_2026.min.json.gz",
+      "stands": 6962
+    },
+    {
+      "district": "11-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_17_2026.min.json.gz",
+      "stands": 6695
+    },
+    {
+      "district": "11-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_18_2026.min.json.gz",
+      "stands": 5956
+    },
+    {
+      "district": "11-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_19_2026.min.json.gz",
+      "stands": 8809
+    },
+    {
+      "district": "11-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_20_2026.min.json.gz",
+      "stands": 4990
+    },
+    {
+      "district": "11-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_21_2026.min.json.gz",
+      "stands": 6286
+    },
+    {
+      "district": "11-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_22_2026.min.json.gz",
+      "stands": 4623
+    },
+    {
+      "district": "11-23",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_23_2026.min.json.gz",
+      "stands": 6371
+    },
+    {
+      "district": "11-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_24_2026.min.json.gz",
+      "stands": 5418
+    },
+    {
+      "district": "11-25",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_25_2026.min.json.gz",
+      "stands": 4804
+    },
+    {
+      "district": "11-27",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_27_2026.min.json.gz",
+      "stands": 6951
+    },
+    {
+      "district": "11-28",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_28_2026.min.json.gz",
+      "stands": 4244
+    },
+    {
+      "district": "11-29",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_29_2026.min.json.gz",
+      "stands": 4016
+    },
+    {
+      "district": "11-30",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_30_2026.min.json.gz",
+      "stands": 4396
+    },
+    {
+      "district": "11-31",
+      "year": 2026,
+      "file": "./data/bdl_stands/11_31_2026.min.json.gz",
+      "stands": 5434
+    },
+    {
+      "district": "12-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_01_2026.min.json.gz",
+      "stands": 4880
+    },
+    {
+      "district": "12-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_02_2026.min.json.gz",
+      "stands": 4050
+    },
+    {
+      "district": "12-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_03_2026.min.json.gz",
+      "stands": 4414
+    },
+    {
+      "district": "12-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_04_2026.min.json.gz",
+      "stands": 6101
+    },
+    {
+      "district": "12-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_05_2026.min.json.gz",
+      "stands": 6615
+    },
+    {
+      "district": "12-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_06_2026.min.json.gz",
+      "stands": 4700
+    },
+    {
+      "district": "12-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_07_2026.min.json.gz",
+      "stands": 5029
+    },
+    {
+      "district": "12-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_08_2026.min.json.gz",
+      "stands": 3551
+    },
+    {
+      "district": "12-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_09_2026.min.json.gz",
+      "stands": 5253
+    },
+    {
+      "district": "12-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_10_2026.min.json.gz",
+      "stands": 2365
+    },
+    {
+      "district": "12-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_11_2026.min.json.gz",
+      "stands": 4880
+    },
+    {
+      "district": "12-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_12_2026.min.json.gz",
+      "stands": 5790
+    },
+    {
+      "district": "12-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_13_2026.min.json.gz",
+      "stands": 2569
+    },
+    {
+      "district": "12-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_14_2026.min.json.gz",
+      "stands": 3220
+    },
+    {
+      "district": "12-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_15_2026.min.json.gz",
+      "stands": 4033
+    },
+    {
+      "district": "12-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_16_2026.min.json.gz",
+      "stands": 5505
+    },
+    {
+      "district": "12-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_17_2026.min.json.gz",
+      "stands": 3928
+    },
+    {
+      "district": "12-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_18_2026.min.json.gz",
+      "stands": 7598
+    },
+    {
+      "district": "12-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_19_2026.min.json.gz",
+      "stands": 3941
+    },
+    {
+      "district": "12-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_20_2026.min.json.gz",
+      "stands": 7180
+    },
+    {
+      "district": "12-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_21_2026.min.json.gz",
+      "stands": 5346
+    },
+    {
+      "district": "12-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_22_2026.min.json.gz",
+      "stands": 3128
+    },
+    {
+      "district": "12-23",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_23_2026.min.json.gz",
+      "stands": 2391
+    },
+    {
+      "district": "12-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_24_2026.min.json.gz",
+      "stands": 4685
+    },
+    {
+      "district": "12-25",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_25_2026.min.json.gz",
+      "stands": 4095
+    },
+    {
+      "district": "12-26",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_26_2026.min.json.gz",
+      "stands": 3571
+    },
+    {
+      "district": "12-28",
+      "year": 2026,
+      "file": "./data/bdl_stands/12_28_2026.min.json.gz",
+      "stands": 4400
+    },
+    {
+      "district": "13-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_01_2026.min.json.gz",
+      "stands": 4154
+    },
+    {
+      "district": "13-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_02_2026.min.json.gz",
+      "stands": 2583
+    },
+    {
+      "district": "13-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_03_2026.min.json.gz",
+      "stands": 4913
+    },
+    {
+      "district": "13-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_04_2026.min.json.gz",
+      "stands": 3186
+    },
+    {
+      "district": "13-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_05_2026.min.json.gz",
+      "stands": 5150
+    },
+    {
+      "district": "13-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_06_2026.min.json.gz",
+      "stands": 5981
+    },
+    {
+      "district": "13-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_07_2026.min.json.gz",
+      "stands": 2974
+    },
+    {
+      "district": "13-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_08_2026.min.json.gz",
+      "stands": 5209
+    },
+    {
+      "district": "13-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_09_2026.min.json.gz",
+      "stands": 7363
+    },
+    {
+      "district": "13-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_10_2026.min.json.gz",
+      "stands": 4170
+    },
+    {
+      "district": "13-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_11_2026.min.json.gz",
+      "stands": 2143
+    },
+    {
+      "district": "13-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_12_2026.min.json.gz",
+      "stands": 3998
+    },
+    {
+      "district": "13-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_13_2026.min.json.gz",
+      "stands": 5779
+    },
+    {
+      "district": "13-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_14_2026.min.json.gz",
+      "stands": 6369
+    },
+    {
+      "district": "13-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_15_2026.min.json.gz",
+      "stands": 7524
+    },
+    {
+      "district": "13-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_16_2026.min.json.gz",
+      "stands": 2461
+    },
+    {
+      "district": "13-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_17_2026.min.json.gz",
+      "stands": 4486
+    },
+    {
+      "district": "13-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_18_2026.min.json.gz",
+      "stands": 7909
+    },
+    {
+      "district": "13-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_19_2026.min.json.gz",
+      "stands": 4841
+    },
+    {
+      "district": "13-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_20_2026.min.json.gz",
+      "stands": 4393
+    },
+    {
+      "district": "13-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_21_2026.min.json.gz",
+      "stands": 6316
+    },
+    {
+      "district": "13-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_22_2026.min.json.gz",
+      "stands": 4291
+    },
+    {
+      "district": "13-23",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_23_2026.min.json.gz",
+      "stands": 4374
+    },
+    {
+      "district": "13-24",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_24_2026.min.json.gz",
+      "stands": 2958
+    },
+    {
+      "district": "13-25",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_25_2026.min.json.gz",
+      "stands": 4318
+    },
+    {
+      "district": "13-26",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_26_2026.min.json.gz",
+      "stands": 4622
+    },
+    {
+      "district": "13-27",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_27_2026.min.json.gz",
+      "stands": 4990
+    },
+    {
+      "district": "13-28",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_28_2026.min.json.gz",
+      "stands": 4675
+    },
+    {
+      "district": "13-29",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_29_2026.min.json.gz",
+      "stands": 4989
+    },
+    {
+      "district": "13-30",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_30_2026.min.json.gz",
+      "stands": 5586
+    },
+    {
+      "district": "13-31",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_31_2026.min.json.gz",
+      "stands": 4690
+    },
+    {
+      "district": "13-32",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_32_2026.min.json.gz",
+      "stands": 3181
+    },
+    {
+      "district": "13-33",
+      "year": 2026,
+      "file": "./data/bdl_stands/13_33_2026.min.json.gz",
+      "stands": 4420
+    },
+    {
+      "district": "14-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_01_2026.min.json.gz",
+      "stands": 8379
+    },
+    {
+      "district": "14-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_02_2026.min.json.gz",
+      "stands": 8749
+    },
+    {
+      "district": "14-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_03_2026.min.json.gz",
+      "stands": 8039
+    },
+    {
+      "district": "14-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_04_2026.min.json.gz",
+      "stands": 7680
+    },
+    {
+      "district": "14-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_05_2026.min.json.gz",
+      "stands": 10997
+    },
+    {
+      "district": "14-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_06_2026.min.json.gz",
+      "stands": 10285
+    },
+    {
+      "district": "14-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_07_2026.min.json.gz",
+      "stands": 12546
+    },
+    {
+      "district": "14-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_08_2026.min.json.gz",
+      "stands": 8702
+    },
+    {
+      "district": "14-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_09_2026.min.json.gz",
+      "stands": 9305
+    },
+    {
+      "district": "14-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_10_2026.min.json.gz",
+      "stands": 9673
+    },
+    {
+      "district": "14-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_11_2026.min.json.gz",
+      "stands": 8559
+    },
+    {
+      "district": "14-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_12_2026.min.json.gz",
+      "stands": 6973
+    },
+    {
+      "district": "14-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_13_2026.min.json.gz",
+      "stands": 8490
+    },
+    {
+      "district": "14-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_14_2026.min.json.gz",
+      "stands": 7209
+    },
+    {
+      "district": "14-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_15_2026.min.json.gz",
+      "stands": 8294
+    },
+    {
+      "district": "14-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_16_2026.min.json.gz",
+      "stands": 7139
+    },
+    {
+      "district": "14-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_17_2026.min.json.gz",
+      "stands": 6420
+    },
+    {
+      "district": "14-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_18_2026.min.json.gz",
+      "stands": 6634
+    },
+    {
+      "district": "14-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_19_2026.min.json.gz",
+      "stands": 6241
+    },
+    {
+      "district": "14-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/14_20_2026.min.json.gz",
+      "stands": 6597
+    },
+    {
+      "district": "15-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_01_2026.min.json.gz",
+      "stands": 5481
+    },
+    {
+      "district": "15-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_02_2026.min.json.gz",
+      "stands": 4996
+    },
+    {
+      "district": "15-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_03_2026.min.json.gz",
+      "stands": 4582
+    },
+    {
+      "district": "15-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_04_2026.min.json.gz",
+      "stands": 4855
+    },
+    {
+      "district": "15-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_05_2026.min.json.gz",
+      "stands": 5401
+    },
+    {
+      "district": "15-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_06_2026.min.json.gz",
+      "stands": 5967
+    },
+    {
+      "district": "15-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_07_2026.min.json.gz",
+      "stands": 5315
+    },
+    {
+      "district": "15-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_08_2026.min.json.gz",
+      "stands": 5954
+    },
+    {
+      "district": "15-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_09_2026.min.json.gz",
+      "stands": 5556
+    },
+    {
+      "district": "15-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_10_2026.min.json.gz",
+      "stands": 5885
+    },
+    {
+      "district": "15-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_11_2026.min.json.gz",
+      "stands": 7440
+    },
+    {
+      "district": "15-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_12_2026.min.json.gz",
+      "stands": 5846
+    },
+    {
+      "district": "15-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_13_2026.min.json.gz",
+      "stands": 4844
+    },
+    {
+      "district": "15-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_14_2026.min.json.gz",
+      "stands": 5505
+    },
+    {
+      "district": "15-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/15_15_2026.min.json.gz",
+      "stands": 3959
+    },
+    {
+      "district": "16-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_01_2026.min.json.gz",
+      "stands": 5476
+    },
+    {
+      "district": "16-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_02_2026.min.json.gz",
+      "stands": 4732
+    },
+    {
+      "district": "16-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_03_2026.min.json.gz",
+      "stands": 5206
+    },
+    {
+      "district": "16-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_04_2026.min.json.gz",
+      "stands": 5134
+    },
+    {
+      "district": "16-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_05_2026.min.json.gz",
+      "stands": 3859
+    },
+    {
+      "district": "16-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_06_2026.min.json.gz",
+      "stands": 3815
+    },
+    {
+      "district": "16-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_07_2026.min.json.gz",
+      "stands": 3080
+    },
+    {
+      "district": "16-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_08_2026.min.json.gz",
+      "stands": 5433
+    },
+    {
+      "district": "16-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_09_2026.min.json.gz",
+      "stands": 2717
+    },
+    {
+      "district": "16-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_10_2026.min.json.gz",
+      "stands": 3718
+    },
+    {
+      "district": "16-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_11_2026.min.json.gz",
+      "stands": 3107
+    },
+    {
+      "district": "16-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_12_2026.min.json.gz",
+      "stands": 4114
+    },
+    {
+      "district": "16-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_13_2026.min.json.gz",
+      "stands": 3762
+    },
+    {
+      "district": "16-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_14_2026.min.json.gz",
+      "stands": 2785
+    },
+    {
+      "district": "16-15",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_15_2026.min.json.gz",
+      "stands": 3187
+    },
+    {
+      "district": "16-16",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_16_2026.min.json.gz",
+      "stands": 5529
+    },
+    {
+      "district": "16-17",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_17_2026.min.json.gz",
+      "stands": 4844
+    },
+    {
+      "district": "16-18",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_18_2026.min.json.gz",
+      "stands": 1503
+    },
+    {
+      "district": "16-19",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_19_2026.min.json.gz",
+      "stands": 2548
+    },
+    {
+      "district": "16-20",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_20_2026.min.json.gz",
+      "stands": 3149
+    },
+    {
+      "district": "16-21",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_21_2026.min.json.gz",
+      "stands": 3652
+    },
+    {
+      "district": "16-22",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_22_2026.min.json.gz",
+      "stands": 5107
+    },
+    {
+      "district": "16-23",
+      "year": 2026,
+      "file": "./data/bdl_stands/16_23_2026.min.json.gz",
+      "stands": 4754
+    },
+    {
+      "district": "17-01",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_01_2026.min.json.gz",
+      "stands": 3837
+    },
+    {
+      "district": "17-02",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_02_2026.min.json.gz",
+      "stands": 3222
+    },
+    {
+      "district": "17-03",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_03_2026.min.json.gz",
+      "stands": 4662
+    },
+    {
+      "district": "17-04",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_04_2026.min.json.gz",
+      "stands": 5047
+    },
+    {
+      "district": "17-05",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_05_2026.min.json.gz",
+      "stands": 2815
+    },
+    {
+      "district": "17-06",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_06_2026.min.json.gz",
+      "stands": 5687
+    },
+    {
+      "district": "17-07",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_07_2026.min.json.gz",
+      "stands": 4441
+    },
+    {
+      "district": "17-08",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_08_2026.min.json.gz",
+      "stands": 3615
+    },
+    {
+      "district": "17-09",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_09_2026.min.json.gz",
+      "stands": 3852
+    },
+    {
+      "district": "17-10",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_10_2026.min.json.gz",
+      "stands": 3569
+    },
+    {
+      "district": "17-11",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_11_2026.min.json.gz",
+      "stands": 5533
+    },
+    {
+      "district": "17-12",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_12_2026.min.json.gz",
+      "stands": 3369
+    },
+    {
+      "district": "17-13",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_13_2026.min.json.gz",
+      "stands": 6279
+    },
+    {
+      "district": "17-14",
+      "year": 2026,
+      "file": "./data/bdl_stands/17_14_2026.min.json.gz",
+      "stands": 6281
     }
   ],
-  "targetCheck": {
-    "address": "02-24-1-10-128-c-00",
-    "composition": [
-      {
-        "tree": "SO",
-        "age": 71,
-        "part": "5",
-        "rank": 1
-      },
-      {
-        "tree": "BRZ",
-        "age": 71,
-        "part": "3",
-        "rank": 2
-      },
-      {
-        "tree": "GB",
-        "age": 56,
-        "part": "2",
-        "rank": 3
-      },
-      {
-        "tree": "DB",
-        "age": 151,
-        "part": "MJS",
-        "rank": 4
-      },
-      {
-        "tree": "DB",
-        "age": 91,
-        "part": "MJS",
-        "rank": 5
-      },
-      {
-        "tree": "OS",
-        "age": 71,
-        "part": "MJS",
-        "rank": 6
-      },
-      {
-        "tree": "DB.C",
-        "age": 71,
-        "part": "MJS",
-        "rank": 7
-      },
-      {
-        "tree": "DB",
-        "age": 71,
-        "part": "MJS",
-        "rank": 8
-      },
-      {
-        "tree": "MD",
-        "age": 71,
-        "part": "MJS",
-        "rank": 9
-      },
-      {
-        "tree": "ŚW",
-        "age": 71,
-        "part": "MJS",
-        "rank": 10
-      },
-      {
-        "tree": "GB",
-        "age": 71,
-        "part": "MJS",
-        "rank": 11
-      },
-      {
-        "tree": "GB",
-        "age": 31,
-        "part": "MJS",
-        "rank": 12
-      }
-    ]
-  },
   "sourceMetadata": [
-    "RDSF Code: 02",
-    "RDSF Name: Katowice                      ",
-    "Forest District Code:  24",
-    "Forest District Name:  Prószków                      ",
     "Year: 2026",
-    "Source of data: Forest Data Bank",
-    "Preparation date: 2026-06-23"
-  ]
+    "Source of data: Forest Data Bank"
+  ],
+  "provenance": {
+    "provider": "Bank Danych o Lasach / Biuro Urządzania Lasu i Geodezji Leśnej",
+    "suppliedAt": "2026-09-21",
+    "suppliedDateEvidence": "Wiadomość o udostępnieniu danych od BDL",
+    "districtsListedInSupplyNotice": 429,
+    "downloadedAt": null,
+    "preparationDate": "Daty przygotowania odnoszą się do poszczególnych paczek źródłowych; brak jednej potwierdzonej daty dla całego zbioru."
+  }
 }
