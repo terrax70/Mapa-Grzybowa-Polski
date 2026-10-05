@@ -17,6 +17,25 @@ const BDL_BASE='https://mapserver.bdl.lasy.gov.pl/arcgis/rest/services/WMS_BDL_m
 const BDL_FULL='https://mapserver.bdl.lasy.gov.pl/arcgis/rest/services/Mapa_drzewostanow/MapServer';
 
 let currentFilter='all';
+let calendarMonthV294=Number(new Intl.DateTimeFormat('en-US',{month:'numeric',timeZone:'Europe/Warsaw'}).format(new Date()));
+const habitatSeasonsEnabledV293=false; // Reserved for a future seasonal model.
+let habitatSeasonV292='annual';
+const habitatSeasonMemoV292=new Map();
+function seasonAllowedV292(type){
+ if(mapMode==='habitat')return monthlyFactorV294(type)>0;
+ if(!habitatSeasonsEnabledV293||mapMode!=='habitat'||habitatSeasonV292==='annual')return true;
+ if(type==='boczniak_ostrygowaty')return ['autumn','winter'].includes(habitatSeasonV292);
+ if(habitatSeasonV292==='winter')return false;
+ const memoKey=habitatSeasonV292+'|'+type;
+ if(habitatSeasonMemoV292.has(memoKey))return habitatSeasonMemoV292.get(memoKey);
+ const ranges={spring:[59,151],summer:[151,243],autumn:[243,334]};
+ const range=ranges[habitatSeasonV292],curve=SPECIES_META[type]?.season;
+ if(!range||!curve)return false;
+ let allowed=false;
+ for(let day=range[0];day<range[1];day++)if(piecewise(day,curve)>=25){allowed=true;break;}
+ habitatSeasonMemoV292.set(memoKey,allowed);
+ return allowed;
+}
 let mapMode='today';
 let topOnly=false;
 let allFeatures=[];
@@ -3403,6 +3422,7 @@ function speciesEffective(type,f){
  });
 }
 function featureRelevant(type,f){
+ if(!seasonAllowedV292(type))return false;
  const m=SPECIES_META[type];if(!m)return false;
 
  if(m.ecology==='mycorrhiza'||m.ecology==='wood'){
@@ -9248,13 +9268,16 @@ function reasonsFor(type,f){
      else if(Number.isFinite(near)&&near>1.0)warn.push('brak bliskiego skraju lasu');
    }
  }else{
-   if(host>=.9)good.push('odpowiedni gospodarz');else if(host<.55)warn.push('słabsze dopasowanie gospodarza');
+   const cfg=HOSTS[type]||{strong:[],secondary:[]};
+   const match=standLocalMatchV238(featureStandSpeciesProfileV238(f),cfg.strong,cfg.secondary);
+   if(match?.shareKnown===false){good.push('gospodarz wykazany w danych');warn.push('nieznany udział gospodarza — ocena niepewna');}
+   else if(host>=.9)good.push('odpowiedni gospodarz');else if(host<.55)warn.push('mały udział lub brak gospodarza w danych');
    if(tree>=8.8)good.push('bardzo dobry drzewostan');
  }
 
  if(soil>=8.5)good.push('gleba dobrze pasuje');else if(soil<6.2)warn.push('gleba obniża ocenę');
  if(terr>=8.2)good.push('korzystny mikroteren');
- if(Number.isFinite(weather)&&weather>=75)good.push('dobre warunki pogodowe');else if(Number.isFinite(weather)&&weather<55)warn.push('warunki pogodowe są słabe');
+ if(mapMode==='today'){if(Number.isFinite(weather)&&weather>=75)good.push('dobre warunki pogodowe');else if(Number.isFinite(weather)&&weather<55)warn.push('warunki pogodowe są słabe');}
  if(season>=85)good.push('bardzo dobry moment sezonu');else if(season<50)warn.push('słaby moment sezonu');
  if(dist>.45)warn.push('wycinka / odnowienie obniża potencjał');
  if(hist.count2>0)good.push('są publiczne obserwacje w promieniu 2 km');else warn.push('brak lokalnego potwierdzenia grzybni / znalezisk');
@@ -9523,12 +9546,13 @@ function opportunityRawComposite(f,dynamic=false,typesOverride=null){
 // a POTENCJAŁ + DZIŚ mogą powstać w jednym przebiegu po gatunkach.
 const opportunityScalarMetaCacheV175=new Map();
 function opportunityScalarMetaV175(types){
- const typeKey=opportunityTypeSetKey(types);
+ const typeKey=opportunityTypeSetKey(types)+'|'+mapMode+'|'+(mapMode==='habitat'?calendarMonthV294:0);
  let meta=opportunityScalarMetaCacheV175.get(typeKey);
  if(meta)return meta;
  const nicheIds=[];
  const nicheToIndex=new Map();
  for(const t of types){
+   if(!seasonAllowedV292(t)){nicheIds.push(-1);continue;}
    const niche=opportunityNicheKey(t);
    let idx=nicheToIndex.get(niche);
    if(idx===undefined){idx=nicheToIndex.size;nicheToIndex.set(niche,idx);}
@@ -9539,6 +9563,7 @@ function opportunityScalarMetaV175(types){
  const breadthWeight=possibleExtras<=0?0:(possibleExtras===1?.18:(possibleExtras===2?.24:.30));
  const forestIndices=[],openIndices=[];
  for(let i=0;i<types.length;i++){
+   if(!seasonAllowedV292(types[i]))continue;
    const eco=SPECIES_META[types[i]]?.ecology;
    if(eco!=='grassland')forestIndices.push(i);
    if(eco==='grassland'||eco==='edge')openIndices.push(i);
@@ -9607,6 +9632,7 @@ function perfSetTypeFeatureCacheV196(store,key,f,value){
  wm.set(f,value);
 }
 function opportunityTypeScorePairV196(type,f,needDynamic=true,sharedForestContextScore=NaN){
+ if(!seasonAllowedV292(type))return {potential:0,effective:needDynamic?0:NaN};
  const m=SPECIES_META[type];
  if(!m||m.collect===false)return {potential:0,effective:needDynamic?0:NaN};
  const evidenceKey=observationEvidenceActive(type)?1:0;
@@ -9632,6 +9658,7 @@ function opportunityTypeScorePairV196(type,f,needDynamic=true,sharedForestContex
    if(ctxScore<4.2)potential-=(4.2-ctxScore)*.12;
    potential=clamp(potential);
  }
+ potential*=monthlyFactorV294(type)*substrateGateV297(type,featureStandSpeciesProfileV238(f));
  // Seed tych samych cache'y, z ktorych pozniej korzysta UI/audyt.
  perfSetTypeFeatureCacheV196(perfStableSpeciesPotentialCache,cacheKey,f,stablePotential);
  // v210: single-species observation evidence musi trafić do osobnego bucketa.
@@ -9670,6 +9697,7 @@ function opportunityTypeScorePairV196(type,f,needDynamic=true,sharedForestContex
 // 4 dodatkowych cache'y per gatunek x feature; UI/audyt policzą je leniwie tylko tam,
 // gdzie naprawdę są potrzebne. Wzory pozostają 1:1 z opportunityTypeScorePairV196().
 function opportunityTypeScorePairLeanV197(type,f,needDynamic=true,sharedForestContextScore=NaN){
+ if(!seasonAllowedV292(type))return {potential:0,effective:needDynamic?0:NaN};
  const m=SPECIES_META[type];
  if(!m||m.collect===false)return {potential:0,effective:needDynamic?0:NaN};
  const hist=historyInfo(type,f);
@@ -9718,6 +9746,7 @@ function opportunityTypeScorePairLeanV197(type,f,needDynamic=true,sharedForestCo
    if(ctxScore<4.2)potential-=(4.2-ctxScore)*.12;
    potential=clamp(potential);
  }
+ potential*=monthlyFactorV294(type)*substrateGateV297(type,featureStandSpeciesProfileV238(f));
  if(!needDynamic)return {potential,effective:NaN};
  let effective=clamp(habitatRaw);
  if(mapMode!=='habitat'){
@@ -9922,6 +9951,7 @@ function opportunityTypeScoreForestV200(d,ctx,soilRel,needDynamic=true){
  potential=.86*potential+.14*ctx.ctxScore;
  if(ctx.ctxScore<4.2)potential-=(4.2-ctx.ctxScore)*.12;
  potential=clamp(potential);
+ potential*=monthlyFactorV294(d.type)*substrateGateV297(d.type,ctx.stand);
  if(!needDynamic)return {potential,effective:NaN};
  let effective=clamp(habitatRaw);
  if(mapMode!=='habitat')effective=clamp(effective*opportunityConditionFactorV200(d,ctx.center));
@@ -9975,6 +10005,7 @@ function opportunityRawScorePairLeanV197(f,typesOverride=null,needDynamic=true){
 
  for(let k=0;k<indices.length;k++){
    const i=indices[k],t=types[i];
+   if(!seasonAllowedV292(t))continue;
    if(SPECIES_META[t]?.ecology==='edge'&&!featureRelevant(t,f))continue;
 
    let potential,effective,descV200=null,useForestKernelV200=false;
@@ -10080,6 +10111,7 @@ function opportunityRawScorePairV175(f,typesOverride=null,needDynamic=true){
  const sharedForestContextScore=f._kind==='open'?NaN:forestContextInfo(f).score;
  for(let k=0;k<indices.length;k++){
    const i=indices[k],t=types[i];
+   if(!seasonAllowedV292(t))continue;
    // edge na wydzieleniu leśnym nadal wymaga rzeczywistego skraju/polany.
    if(SPECIES_META[t]?.ecology==='edge'&&!featureRelevant(t,f))continue;
    const scores=opportunityTypeScorePairV196(t,f,needDynamic&&!hasDynamic,sharedForestContextScore);
@@ -10179,7 +10211,7 @@ function opportunityAggregateInfoClusterProduction(f,dynamic,types,areaName,cent
 
  const nationalFeature=nationalCompositeBenchmarkInfo(types,f); // tylko diagnostyka
  const nationalPrior=ctx.prior;
- const overallIndex=clamp(localIndex+(nationalPrior.active?nationalPrior.adjustment:0));
+ const overallIndex=monthlyAggregateCapV294(f,types,clamp(localIndex+(nationalPrior.active?nationalPrior.adjustment:0)));
 
  if(!dynamic){
    return {
@@ -10285,7 +10317,7 @@ function opportunityAggregateInfo(f,dynamic=false,typesOverride=null){
  // Nie korygujemy już każdego wydzielenia jego własnym percentylem BDL.
  const nationalFeature=nationalCompositeBenchmarkInfo(types,f); // tylko diagnostyka
  const nationalPrior=nationalAreaPrior(types,featureAreaName(f));
- const overallIndex=clamp(localIndex+(nationalPrior.active?nationalPrior.adjustment:0));
+ const overallIndex=monthlyAggregateCapV294(f,types,clamp(localIndex+(nationalPrior.active?nationalPrior.adjustment:0)));
 
  if(!dynamic){
    return {
@@ -10378,7 +10410,7 @@ function opportunityAggregateScoreOnly(f,dynamic=false,typesOverride=null){
  const relative=Math.pow(percentile,.78);
  const qualityGate=opportunityCompositeQualityGate(overallRaw);
  const localIndex=clamp(10*relative*qualityGate);
- const overallIndex=clamp(localIndex+(prior?.active?prior.adjustment:0));
+ const overallIndex=monthlyAggregateCapV294(f,types,clamp(localIndex+(prior?.active?prior.adjustment:0)));
  setOpportunityStableSideScore(types,f,overallIndex);
  if(!dynamic){
    setOpportunityFinalScoreV176(types,f,overallIndex);
@@ -10530,6 +10562,7 @@ function stableHabitatScore(type,f){
 }
 
 function stableSpeciesPotential(type,f){
+ if(!seasonAllowedV292(type))return 0;
  // v172: dokładnie te same wzory co wcześniej, ale komponenty statyczne są
  // współdzielone z staticSuitability(), zamiast liczone drugi raz.
  const cacheKey=`${type}|${observationEvidenceActive(type)?1:0}`;
@@ -14819,7 +14852,7 @@ function opportunityAggregateInfoInArea(f,areaName,dynamic=false,typesOverride=n
 
  const nationalFeature=nationalCompositeBenchmarkInfo(types,f);
  const nationalPrior=nationalAreaPrior(types,areaName);
- const overallIndex=clamp(localIndex+(nationalPrior.active?nationalPrior.adjustment:0));
+ const overallIndex=monthlyAggregateCapV294(f,types,clamp(localIndex+(nationalPrior.active?nationalPrior.adjustment:0)));
 
  if(!dynamic){
    return {
@@ -21084,6 +21117,7 @@ function quantileSorted(arr,q){
 const atlasSpeciesScaleCache=new Map();
 
 function stableScoreForType(type,f){
+ if(!seasonAllowedV292(type))return 0;
  if(!featureRelevant(type,f))return 0;
  // v206: historia obserwacji może wpływać na scoring tylko przy jednym aktywnym
  // gatunku. Cache stableScore musi więc rozróżniać evidence OFF/ON. Dla OFF
@@ -21107,7 +21141,7 @@ function stableScoreForType(type,f){
      base=.86*base+.14*ctx.score;
      if(ctx.score<4.2)base-=(4.2-ctx.score)*.12;
    }
-   return clamp(base);
+   return clamp(base)*monthlyFactorV294(type)*substrateGateV297(type,featureStandSpeciesProfileV238(f));
  });
 }
 
@@ -22093,6 +22127,7 @@ function popupHtmlBase(f){
    `<details class="popup-more"><summary>📊 Dlaczego model tak ocenił?</summary><div class="factor-grid">`+
    `<div class="factor"><span>Potencjał siedliska</span><b>${v.habitat.toFixed(1)}/10</b></div>`+
    (mapMode==='today'?`<div class="factor"><span>Warunki teraz</span><b>${(v.fruit/10).toFixed(1)}/10</b></div>`:'')+
+   (mapMode==='habitat'?`<div class="factor"><span>Mnożnik miesiąca (model)</span><b>${Math.round(monthlyFactorV294(type)*100)}% wagi</b></div>`:'')+
    (mapMode==='today'?`<div class="factor"><span>Sezon gatunku</span><b>${(seasonScore(type)/10).toFixed(1)}/10</b></div>`:'')+
    `<div class="factor"><span>Surowy wynik</span><b>${v.score.toFixed(1)}/10</b></div>`+
    `<div class="factor"><span>Host gate</span><b>${Math.round(hostGate(type,f)*100)}%</b></div>`+
@@ -22344,7 +22379,7 @@ function unifiedPopupHtml(f,h=null){
       habitat:staticSuitability(type,f),fruit:fruitingConditions(type,f),conf:evidenceConfidence(type,f)}
    : aggregateVerdict;
  const conf=v.conf||{value:35,label:'niska'};
- const stable=stableAnchorScore(f);
+ const stable=singleType?practicalSpeciesScore(singleType,f,stableScoreForType(singleType,f)):stableAnchorScore(f);
  const primaryScoreInfo=type&&Number.isFinite(primaryRawScore)?practicalSpeciesScoreInfo(type,f,primaryRawScore):null;
  const displayedPlaceScore=singleType?(primaryScoreInfo?primaryScoreInfo.practical:v.score):(opportunity?.score??v.score);
  const displayedPrimarySpeciesScore=primaryScoreInfo?primaryScoreInfo.practical:(popupPrimaryV216?.score??v.score);
@@ -22460,7 +22495,8 @@ function unifiedPopupHtml(f,h=null){
    detailsHtml=`<details class="popup-more"><summary>📊 Szczegóły oceny miejsca</summary><div class="factor-grid">`+
      `<div class="factor"><span>Jakość siedliska</span><b>${v.habitat.toFixed(1)}/10</b></div>`+
      (mapMode==='today'?`<div class="factor"><span>Warunki teraz</span><b>${(v.fruit/10).toFixed(1)}/10</b></div>`:'')+
-     (mapMode==='today'?`<div class="factor"><span>Sezon gatunku</span><b>${(seasonScore(type)/10).toFixed(1)}/10</b></div>`:'')+
+     (mapMode==='habitat'?`<div class="factor"><span>Mnożnik miesiąca (model)</span><b>${Math.round(monthlyFactorV294(type)*100)}% wagi</b></div>`:'')+
+   (mapMode==='today'?`<div class="factor"><span>Sezon gatunku</span><b>${(seasonScore(type)/10).toFixed(1)}/10</b></div>`:'')+
      `<div class="factor"><span>Dopasowanie biologiczne</span><b>${v.score.toFixed(1)}/10</b></div>`+
      (primaryScoreInfo?`<div class="factor"><span>Korekta lokalna</span><b>${Math.round(primaryScoreInfo.localMultiplier*100)}%</b></div>`:'')+
      (primaryScoreInfo&&primaryScoreInfo.nationalSupported?`<div class="factor"><span>Benchmark Polski</span><b>${Number.isFinite(primaryScoreInfo.nationalPercentile)?('P'+Math.round(primaryScoreInfo.nationalPercentile)+' • ×'+primaryScoreInfo.nationalMultiplier.toFixed(2)):'wczytywanie…'}</b></div>`:'')+
@@ -25485,7 +25521,7 @@ function areaWeatherSignatureV191(area){
  return commutativeSigV191(parts);
 }
 function areaScoreSessionKeyV191(area,types){
- return `v210|${analysisAreaGeometrySigV191(area)}|${opportunityTypeSetKey(types)}`;
+ return `v298|${mapMode}|${mapMode==='habitat'?calendarMonthV294:0}|${analysisAreaGeometrySigV191(area)}|${opportunityTypeSetKey(types)}`;
 }
 function currentDistributionKeyV191(types,areaName,kind){
  return `v105|${scoringRevision}|${opportunityTypeSetKey(types)}|${areaName}|${RADIUS_KM}|${kind}|${allFeatures.length}|${openFeatures.length}`;
@@ -25515,7 +25551,7 @@ function seedFinalScoresForAreaV191(area,types,entry,dynamicOk){
    const percentile=opportunityPercentileFromSorted(sorted,staticRaw);
    const relative=Math.pow(percentile,.78),qualityGate=opportunityCompositeQualityGate(staticRaw);
    const localIndex=clamp(10*relative*qualityGate);
-   const overallIndex=clamp(localIndex+(prior.active?prior.adjustment:0));
+   const overallIndex=monthlyAggregateCapV294(f,types,clamp(localIndex+(prior.active?prior.adjustment:0)));
    setOpportunityStableSideScore(types,f,overallIndex);
    let today=NaN;
    if(dynamicOk){
@@ -26305,7 +26341,7 @@ async function prewarmOpportunityCompositeDistributionsV176(types,key){
          const relative=Math.pow(percentile,.78);
          const qualityGate=opportunityCompositeQualityGate(overallRaw);
          const localIndex=clamp(10*relative*qualityGate);
-         const overallIndex=clamp(localIndex+(prior?.active?prior.adjustment:0));
+         const overallIndex=monthlyAggregateCapV294(f,types,clamp(localIndex+(prior?.active?prior.adjustment:0)));
          setOpportunityStableSideScore(types,f,overallIndex);
          if(warmDynamic){
            const todayRaw=dynamicVals[i];
@@ -27231,6 +27267,7 @@ function nationalRadarSpeciesLabel(type){
 }
 
 function nationalRadarTarget(){
+ if(mapMode==='habitat')return {kind:'unsupported',type:'season'};
  if(analysisCountryV252()==='DE')return {kind:'unsupported',type:'DE'};
  const supported=nationalRadarSupportedSet();
  /* v244.1 unsupported-species guard */
@@ -31038,7 +31075,7 @@ const modeControlHint=document.getElementById('modeControlHint');
 function syncModeControls(){
  document.querySelectorAll('.mode').forEach(x=>x.classList.toggle('active',x.dataset.mode===mapMode));
  const today=mapMode==='today';
- if(modeControlHint)modeControlHint.textContent=today?(weatherReady?'Aktualne warunki':'Brak pogody'):'Potencjał terenu';
+ if(modeControlHint)modeControlHint.textContent=today?(weatherReady?'Aktualne warunki':'Brak pogody'):'Potencjał · '+new Intl.DateTimeFormat('pl-PL',{month:'long',timeZone:'Europe/Warsaw'}).format(new Date());
  if(!quickModeToggle)return;
  quickModeToggle.dataset.mode=mapMode;
  quickModeToggle.setAttribute('aria-checked',String(today));
@@ -31051,6 +31088,9 @@ function setMapMode(nextMode,source='mode-button'){
  const atlasScrollState=preserveAtlasScrollForRender('mode-change');
  mapMode=nextMode;
  syncModeControls();
+ syncSeasonControlV292();
+ invalidateScoringCaches('mode season');
+ scheduleNationalRadarRefresh();
  logUiActionV167('mode-change',{to:nextMode,source});
 
  // POTENCJAŁ i DZIŚ mają różne membership, ale gotowe hotspoty są cache'owane niezależnie.
@@ -31240,15 +31280,6 @@ scheduleNationalBenchmarkAuto();
 // v142: deployment audit zakończony; produkcja nie uruchamia go automatycznie.
 
 
-// National tiles remain a dated habitat overview until rebuilt with the new model.
-function syncRadarModelNoticeV255(){
- const visible=analysisCountryV252()!=='DE'&&map.getZoom()<13;
- let note=document.getElementById('radarModelNoticeV255');
- if(!note){note=document.createElement('div');note.id='radarModelNoticeV255';note.setAttribute('role','status');note.textContent='Radar orientacyjny: wcześniejszy model siedlisk (20.09.2026). Nowa ocena miejsca po analizie rejonu.';map.getContainer().appendChild(note);}
- note.hidden=!visible;
-}
-map.on('zoomend',syncRadarModelNoticeV255);
-window.addEventListener('load',syncRadarModelNoticeV255);
 
 // Place links update without adding browser history entries.
 function updatePlaceLinkV257(place){
@@ -31419,4 +31450,53 @@ function decodeDataWorkerV290(buffer){
   dataWorkerV290.onerror=()=>{for(const p of dataWorkerPendingV290.values()){clearTimeout(p.timer);p.reject(Error('Data worker unavailable'));}dataWorkerPendingV290.clear();dataWorkerV290.terminate();dataWorkerV290=null;};
  }
  return new Promise((resolve,reject)=>{const id=++dataWorkerSeqV290,timer=setTimeout(()=>{dataWorkerPendingV290.delete(id);reject(Error('Data worker timeout'));},20000);dataWorkerPendingV290.set(id,{resolve,reject,timer});const copy=buffer.slice(0);dataWorkerV290.postMessage({id,buffer:copy},[copy]);});
+}
+
+// Seasonal planning uses typical existing phenology curves, not weather forecasts.
+function syncSeasonControlV292(){
+ const control=document.getElementById('habitatSeasonControlV292');
+ if(control)control.hidden=!habitatSeasonsEnabledV293||mapMode!=='habitat';
+}
+const seasonSelectV292=document.getElementById('habitatSeasonV292');
+if(seasonSelectV292&&habitatSeasonsEnabledV293){
+ seasonSelectV292.addEventListener('change',()=>{
+  habitatSeasonV292=seasonSelectV292.value;
+  invalidateScoringCaches('habitat season');
+  perfForceProgressiveRender=true;
+  render('habitat-season');
+  scheduleNationalRadarRefresh();
+  map.closePopup();
+ });
+}
+syncSeasonControlV292();
+
+function monthlyFactorV294(type){
+ if(mapMode!=='habitat')return 1;
+ // Monthly activity is an uncertain prior, not a linear probability multiplier.
+ const activity=MonthlyPhenologyV294.factor(type,calendarMonthV294);
+ return activity>0?.85+.15*activity:0;
+}
+let calendarMonthKeyV294=new Intl.DateTimeFormat('en-US',{year:'numeric',month:'numeric',timeZone:'Europe/Warsaw'}).format(new Date());
+function refreshCalendarMonthV294(){
+ const key=new Intl.DateTimeFormat('en-US',{year:'numeric',month:'numeric',timeZone:'Europe/Warsaw'}).format(new Date());
+ if(key===calendarMonthKeyV294)return;
+ calendarMonthKeyV294=key;
+ calendarMonthV294=Number(new Intl.DateTimeFormat('en-US',{month:'numeric',timeZone:'Europe/Warsaw'}).format(new Date()));
+ invalidateScoringCaches('calendar month');syncModeControls();render('calendar month');scheduleNationalRadarRefresh();
+}
+window.addEventListener('focus',refreshCalendarMonthV294);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshCalendarMonthV294();});
+
+function monthlyAggregateCapV294(f,types,score){
+ if(mapMode!=='habitat')return score;
+ // The distribution already contains month-weighted scores. Do not apply a second ceiling.
+ return opportunityRawScoreScalar(f,false,types)>0?clamp(score):0;
+}
+
+// Standing trees are a substrate proxy, not confirmation of suitable woody material.
+function substrateGateV297(type,profile){
+ if(type!=='boczniak_ostrygowaty')return 1;
+ const cfg=HOSTS[type]||{strong:[],secondary:[]};
+ const match=standLocalMatchV238(profile,cfg.strong,cfg.secondary);
+ return match?standGateScoreV238(match,false):.2;
 }

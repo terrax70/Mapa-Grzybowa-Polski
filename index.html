@@ -3571,6 +3571,12 @@ button.search-result{display:block;width:100%;text-align:left;color:#172019;back
         <span class="quick-mode-option" data-mode-option="habitat"><span class="quick-mode-icon" aria-hidden="true">🌲</span><span>Ogólnie</span></span>
       </button>
     </div>
+    <label id="habitatSeasonControlV292" title="Wiosna III–V, lato VI–VIII, jesień IX–XI, zima XII–II. Zero oznacza wykluczenie z typowego sezonu w modelu, nie biologiczną niemożliwość owocowania." hidden style="background:#1d2922;color:#edf6ef;border-radius:10px;padding:6px 8px;font-size:12px;max-width:185px">
+      Sezon <select id="habitatSeasonV292" aria-label="Sezon oceny ogólnej" style="font-size:16px;max-width:135px">
+        <option value="annual">Cały rok</option><option value="spring">Wiosna</option><option value="summer">Lato</option><option value="autumn">Jesień</option><option value="winter">Zima</option>
+      </select>
+      <span style="display:block;font-size:10px">Sezony: ocena po analizie miejsca</span>
+    </label>
     <button id="mobileSettingsToggle" class="mobile-settings-toggle" type="button" aria-label="Otwórz ustawienia" aria-expanded="false" title="Ustawienia">
       <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M19.14 12.94c.04-.31.06-.63.06-.94s-.02-.63-.07-.94l2.03-1.58a.5.5 0 0 0 .12-.64l-1.92-3.32a.5.5 0 0 0-.61-.22l-2.39.96a7.2 7.2 0 0 0-1.63-.94L14.37 2.8a.5.5 0 0 0-.5-.4h-3.84a.5.5 0 0 0-.49.4l-.36 2.52c-.58.24-1.12.55-1.63.94L5.16 5.3a.5.5 0 0 0-.61.22L2.63 8.84a.5.5 0 0 0 .12.64l2.03 1.58c-.05.31-.08.64-.08.96 0 .31.03.62.07.92l-2.02 1.58a.5.5 0 0 0-.12.64l1.92 3.32a.5.5 0 0 0 .61.22l2.38-.96c.51.4 1.06.72 1.65.96l.35 2.5a.5.5 0 0 0 .49.4h3.84a.5.5 0 0 0 .5-.4l.35-2.5c.59-.24 1.14-.56 1.65-.96l2.38.96a.5.5 0 0 0 .61-.22l1.92-3.32a.5.5 0 0 0-.12-.64l-2.02-1.58ZM12 15.5A3.5 3.5 0 1 1 12 8a3.5 3.5 0 0 1 0 7.5Z"/></svg>
     </button>
@@ -3830,11 +3836,12 @@ button.search-result{display:block;width:100%;text-align:left;color:#172019;back
 <script src="assets/proj4-2.12.1.js"></script>
 <script src="poland_geometry_v265.js?v=265"></script>
 <script src="country_v252.js?v=265"></script>
-<script src="poland_model_v255.js?v=255"></script>
+<script src="poland_model_v255.js?v=298"></script>
 <footer id="legalFooterV259" aria-label="Źródła i licencje">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · <a href="https://www.bdl.lasy.gov.pl/portal/" target="_blank" rel="noopener">BDL — LP / BULiGL</a> · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> / <a href="https://isric.org/explore/soilgrids/" target="_blank" rel="noopener">ISRIC SoilGrids</a> — CC BY 4.0 · <a href="assets/informacje-prawne.html" target="_blank" rel="noopener">Wszystkie źródła, licencje i prywatność</a> · <a href="assets/informacje-prawne.html#warunki" target="_blank" rel="noopener">Własne elementy © 2026 terrax70 — wykorzystanie za zgodą</a></footer>
 <style>#legalFooterV259{position:fixed;bottom:0;left:0;right:0;z-index:1800;background:#000;color:#bbb;font:10px/1.4 system-ui;padding:5px 8px;box-sizing:border-box;text-align:center}#legalFooterV259 a{color:#ccc;text-decoration:underline}#legalFooterV259 a:focus-visible{outline:2px solid white}.mushroom-atlas{bottom:44px!important}.leaflet-bottom{bottom:44px!important}@media(max-width:700px){#legalFooterV259{font-size:10px;padding:4px 6px}.mushroom-atlas{bottom:64px!important}.leaflet-bottom{bottom:64px!important}}</style>
 <script src="poland_access_v262.js?v=270"></script>
-<script src="map_app_v254.js?v=290"></script>
+<script src="monthly_phenology_v294.js?v=294"></script>
+<script src="map_app_v254.js?v=298"></script>
 
 
 <script>

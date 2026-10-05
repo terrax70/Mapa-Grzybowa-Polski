@@ -67,7 +67,7 @@ function hostMatch(profile,strong,secondary){
  return {kind:strongAmount>0?'strong':'secondary',row:best.row,share:clamp(amount,0,1),hostShare:clamp(total,0,1),age:ageWeight?ageSum/ageWeight:NaN,ageCoverage:amount?ageWeight/amount:0,shareKnown:!rows.some(r=>r.inferred)};
 }
 function treeScore(match,wood=false){return match?(match.shareKnown===false?6.5:(wood?4.2:2.5)+(9.7-(wood?4.2:2.5))*Math.sqrt(match.share)):(wood?4.2:2.5);}
-function hostGate(match,strict=false){return match?(match.shareKnown===false?(strict?.5:.65):(strict?.04:.20)+(strict?.96:.80)*Math.sqrt(match.share)):NaN;}
+function hostGate(match,strict=false){return match?(match.shareKnown===false?.8:(strict?.04:.20)+(strict?.96:.80)*Math.sqrt(match.share)):NaN;}
 function soilReliability(sample){
  if(!sample)return 0;
  const coverage=Number.isFinite(sample._soilCoverageReliability)?sample._soilCoverageReliability:(number(sample._soilReliability)||0);
