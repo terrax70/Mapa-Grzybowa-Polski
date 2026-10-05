@@ -1,0 +1,31 @@
+WARUNKI WYKORZYSTANIA — MAPA GRZYBOWA POLSKI
+Copyright (c) 2026 terrax70. Wszelkie prawa zastrzeżone w zakresie przysługujących praw.
+
+1. Zakres
+Warunki dotyczą własnych, chronionych prawem autorskim elementów projektu,
+w szczególności kodu, tekstów i opracowania interfejsu, w zakresie praw
+przysługujących właścicielowi. Nie zastrzegają praw do samych pomysłów,
+faktów, metod ani elementów nieobjętych ochroną prawnoautorską.
+
+2. Korzystanie ze strony
+Dozwolone jest korzystanie z opublikowanej strony zgodnie z jej przeznaczeniem,
+w tym ładowanie i wykonywanie kodu w przeglądarce oraz udostępnianie linków.
+Nie udziela się licencji na dalsze wykorzystanie chronionych własnych elementów:
+kopiowanie do innych projektów, modyfikowanie, rozpowszechnianie,
+publikowanie kopii strony ani wykorzystanie komercyjne wymagają uprzedniej
+zgody uprawnionego. Samo podanie autora nie zastępuje zgody.
+Zapytania o zgodę można kierować do konta terrax70 na GitHubie,
+np. przez Issues repozytorium Mapa-Grzybowa-Polski.
+
+3. Wyjątki i prawa osób trzecich
+Warunki nie ograniczają uprawnień wynikających z bezwzględnie obowiązującego
+prawa, w tym dozwolonego użytku, ani uprawnień do oglądania i forkowania
+publicznego repozytorium przyznanych przez warunki GitHuba.
+Dane i komponenty osób trzecich (m.in. BDL, OpenStreetMap, SoilGrids,
+Open-Meteo, iNaturalist, GBIF, Leaflet, osmtogeojson i Proj4js) podlegają
+własnym licencjom i warunkom. Niniejsze zastrzeżenie ich nie zastępuje.
+Szczegóły: assets/informacje-prawne.html oraz pliki licencji dostawców.
+Materiały wygenerowane przez AI są objęte zastrzeżeniem wyłącznie w zakresie,
+w którym istnieją przysługujące właścicielowi prawa; ten dokument nie tworzy
+praw autorskich do elementów niepodlegających ochronie.
+Warunki nie cofają skutecznych uprawnień wcześniej udzielonych odbiorcom.
