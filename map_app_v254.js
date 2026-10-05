@@ -31272,3 +31272,31 @@ restorePlaceLinkV257();window.addEventListener('hashchange',restorePlaceLinkV257
  for(const name of ['touchstart','touchmove'])document.addEventListener(name,e=>{if(e.touches.length>1&&e.cancelable)e.preventDefault();},{passive:false});
  document.addEventListener('gesturestart',e=>{if(e.cancelable)e.preventDefault();},{passive:false});
 })();
+
+// Keep footer, atlas and legend in separate rows using their actual dimensions.
+(()=>{
+ const footer=document.getElementById('legalFooterV259'),atlas=document.getElementById('mushroomAtlas'),legend=document.getElementById('scoreLegend');
+ if(!footer||!atlas||!legend)return;
+ const style=document.createElement('style');
+ style.textContent='#mushroomAtlas{bottom:var(--map-atlas-bottom,40px)!important}#scoreLegend{bottom:var(--map-legend-bottom,240px)!important}.leaflet-bottom{bottom:var(--map-legend-bottom,240px)!important}#radarModelNoticeV255{position:fixed!important;bottom:var(--map-radar-notice-bottom,320px)!important}';
+ document.head.appendChild(style);
+ let pending=false;
+ function sync(){
+  pending=false;
+  const height=footer.getBoundingClientRect().height;
+  document.documentElement.style.setProperty('--map-atlas-bottom',(height+8)+'px');
+  const bottom=Math.max(height+8,innerHeight-atlas.getBoundingClientRect().top+8);
+  document.documentElement.style.setProperty('--map-legend-bottom',bottom+'px');
+  const legendHeight=legend.classList.contains('visible')?legend.getBoundingClientRect().height:0;
+  document.documentElement.style.setProperty('--map-radar-notice-bottom',(bottom+legendHeight+(legendHeight?8:0))+'px');
+ }
+ function queue(){if(!pending){pending=true;requestAnimationFrame(sync);}}
+ new ResizeObserver(queue).observe(footer);
+ new ResizeObserver(queue).observe(atlas);
+ new ResizeObserver(queue).observe(legend);
+ new MutationObserver(queue).observe(atlas,{attributes:true,attributeFilter:['class']});
+ new MutationObserver(queue).observe(legend,{attributes:true,attributeFilter:['class','aria-hidden']});
+ window.addEventListener('resize',queue,{passive:true});
+ window.visualViewport?.addEventListener('resize',queue,{passive:true});
+ queue();
+})();
