@@ -1,0 +1,1 @@
+self.onmessage=async({data:{id,buffer}})=>{try{const b=new Uint8Array(buffer);let text;if(b[0]===31&&b[1]===139){text=await new Response(new Blob([buffer]).stream().pipeThrough(new DecompressionStream('gzip'))).text();}else{text=new TextDecoder().decode(buffer);}self.postMessage({id,value:JSON.parse(text)});}catch(e){self.postMessage({id,error:e.message});}};

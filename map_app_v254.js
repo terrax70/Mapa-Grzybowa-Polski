@@ -2478,7 +2478,7 @@ async function loadSoilGrid(){
    }
 
    const rows=await runLimited(tasks,3);
-   const optionalTasks=bbs.flatMap(bb=>SOIL_WCS_PROPERTIES.filter(x=>x.optional).map(def=>async()=>({def,bb,raster:await fetchSoilWcsRaster(def,bb)})));
+   const optionalTasks=bbs.filter(bb=>rows.some(r=>r&&r.def.key==='ph'&&r.bb===bb&&soilRasterToSamples(r.raster,r.bb,r.def).length>=Math.ceil(SOIL_WCS_GRID*SOIL_WCS_GRID*.45))).flatMap(bb=>SOIL_WCS_PROPERTIES.filter(x=>x.optional).map(def=>async()=>({def,bb,raster:await fetchSoilWcsRaster(def,bb)})));
    const optionalRows=await runLimited(optionalTasks,2);
    const validRows=[...rows,...optionalRows].filter(Boolean);
 
@@ -6588,6 +6588,7 @@ async function getExactStandManifestV243(){
 }
 async function decodeGzipJsonV243(response){
   const ab=await response.arrayBuffer();
+  if(ab.byteLength>=100000&&typeof Worker==='function'){try{return await decodeDataWorkerV290(ab);}catch(e){console.warn('Data worker fallback',e.message);}}
   const bytes=new Uint8Array(ab);
   // Some static hosts can transparently decode. Sniff gzip magic first.
   if(bytes.length>=2 && bytes[0]===0x1f && bytes[1]===0x8b){
@@ -31404,7 +31405,18 @@ let timer,seq=0,busy=false,last='',retries=0;
   }catch(e){state.state='error';state.error=e.message;showStatus('Ścieżki OSM niedostępne — ponawiam pobieranie');console.warn('Ścieżki OSM',e.message);if(retries++<2){clearTimeout(timer);timer=setTimeout(load,8000);}}
   finally{busy=false;}
  }
- function schedule(){clearTimeout(timer);retries=0;timer=setTimeout(load,700);}
+ function schedule(){seq++;clearTimeout(timer);retries=0;timer=setTimeout(load,700);}
  map.on('moveend',schedule);schedule();
  window.forestTracksV282=group;
 })();
+
+// Lazy worker: decompress and parse large data without blocking map interaction.
+var dataWorkerV290=null,dataWorkerSeqV290=0,dataWorkerPendingV290=new Map();
+function decodeDataWorkerV290(buffer){
+ if(!dataWorkerV290){
+  dataWorkerV290=new Worker('assets/data-worker-v290.js');
+  dataWorkerV290.onmessage=({data})=>{const p=dataWorkerPendingV290.get(data.id);if(!p)return;clearTimeout(p.timer);dataWorkerPendingV290.delete(data.id);data.error?p.reject(Error(data.error)):p.resolve(data.value);};
+  dataWorkerV290.onerror=()=>{for(const p of dataWorkerPendingV290.values()){clearTimeout(p.timer);p.reject(Error('Data worker unavailable'));}dataWorkerPendingV290.clear();dataWorkerV290.terminate();dataWorkerV290=null;};
+ }
+ return new Promise((resolve,reject)=>{const id=++dataWorkerSeqV290,timer=setTimeout(()=>{dataWorkerPendingV290.delete(id);reject(Error('Data worker timeout'));},20000);dataWorkerPendingV290.set(id,{resolve,reject,timer});const copy=buffer.slice(0);dataWorkerV290.postMessage({id,buffer:copy},[copy]);});
+}
