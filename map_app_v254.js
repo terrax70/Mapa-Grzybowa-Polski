@@ -2437,7 +2437,7 @@ async function loadSoilGrid(){
  if(!SOIL_WCS_ENABLED){
    el.textContent='wyłączone';
    el.className='st-warn';
-   setSourceState('soil','off','Gleba WCS wyłączona • neutralna gleba 7/10');
+   setSourceState('soil','off','Gleba WCS wyłączona • gleba nieznana — zastępcza wartość modelu 7/10');
    return false;
  }
 
@@ -2445,7 +2445,7 @@ async function loadSoilGrid(){
    el.textContent='pominięte • API timeout';
    el.className='st-warn';
    soilLastError=soilWcsLastNetworkError||'aktywny circuit po timeoutcie';
-   setSourceState('soil','error','SoilGrids WCS chwilowo pominięty • neutralna gleba 7/10');
+   setSourceState('soil','error','SoilGrids WCS chwilowo pominięty • gleba nieznana — zastępcza wartość modelu 7/10');
    return false;
  }
 
@@ -2457,8 +2457,13 @@ async function loadSoilGrid(){
    for(const bb of bbs){
      for(const def of SOIL_WCS_PROPERTIES.filter(x=>!x.optional)){
        tasks.push(async()=>{
-         const raster=await fetchSoilWcsRaster(def,bb);
-         return {def,bb,raster};
+         try{
+           const raster=await fetchSoilWcsRaster(def,bb);
+           return {def,bb,raster};
+         }catch(e){
+           soilLastError=String(e?.message||e);
+           throw e;
+         }
        });
      }
    }
@@ -2507,7 +2512,7 @@ async function loadSoilGrid(){
      setSourceState(
        'soil',
        complete?'ok':'error',
-       `SoilGrids WCS • pH ${withPh.length}/${expectedCells} • piasek ${withSand}/${expectedCells} • SOC ${withSoc}/${expectedCells}${complete?'':' • brakujące rejony mają neutralną glebę; pozostałe zachowują własną wiarygodność'}`
+       `SoilGrids WCS • pH ${withPh.length}/${expectedCells} • piasek ${withSand}/${expectedCells} • SOC ${withSoc}/${expectedCells}${complete?'':' • gleba w brakujących rejonach jest nieznana; model stosuje tam wartość zastępczą'}`
      );
      invalidateScoringCaches('SoilGrids WCS ready');
      if(allFeatures.length&&!deferSecondaryRenders)render();
@@ -2516,10 +2521,10 @@ async function loadSoilGrid(){
 
    soilSamples=[];
    soilCoverage=0;
-   soilLastError=`za mało komórek pH (${withPh.length}/${expectedCells})`;
+   soilLastError=withPh.length===0&&soilLastError?soilLastError:`za mało komórek pH (${withPh.length}/${expectedCells})`;
    el.textContent='za mało danych';
    el.className='st-warn';
-   setSourceState('soil','error',`SoilGrids WCS: ${soilLastError} • neutralna gleba 7/10`);
+   setSourceState('soil','error',`SoilGrids WCS: ${soilLastError} • gleba nieznana — zastępcza wartość modelu 7/10`);
    return false;
  }catch(e){
    soilLastError=String(e?.message||e);
@@ -2529,7 +2534,7 @@ async function loadSoilGrid(){
    soilSamples=[];
    el.textContent='WCS niedostępne';
    el.className='st-warn';
-   setSourceState('soil','error',`SoilGrids WCS: ${soilLastError} • neutralna gleba 7/10`);
+   setSourceState('soil','error',`SoilGrids WCS: ${soilLastError} • gleba nieznana — zastępcza wartość modelu 7/10`);
    return false;
  }
 }
@@ -5170,7 +5175,7 @@ async function main(){
      ?Promise.resolve(false)
      :perfTimed('open',loadOpenHabitats())
        .then(()=>{
-         setSourceState('open',openReady?'ok':'error',openReady?`${openFeatures.length} obszarów OSM${RADIUS_KM>10?' • zasięg OSM ograniczony do ok. 10 km wokół środka każdego rejonu':''}`:'Brak danych OSM');
+         setSourceState('open',openReady?'ok':overpassLastPerf?.successes?'ok':'error',openReady?`${openFeatures.length} obszarów OSM${RADIUS_KM>10?' • zasięg OSM ograniczony do ok. 10 km wokół środka każdego rejonu':''}`:overpassLastPerf?.successes?'OSM odpowiedział — brak zmapowanych łąk i polan w tym obszarze':`OSM/Overpass niedostępne: ${overpassLastPerf?.error||'błąd pobierania'}`);
          return openReady;
        })
        .catch(e=>{setSourceState('open','error',String(e?.message||e));return false;});
@@ -5179,7 +5184,7 @@ async function main(){
      .then(ok=>ok)
      .catch(e=>{
        console.warn('SoilGrids WCS optional source failed',e);
-       setSourceState('soil','error','SoilGrids WCS niedostępne • neutralna gleba 7/10');
+       setSourceState('soil','error','SoilGrids WCS niedostępne • gleba nieznana — zastępcza wartość modelu 7/10');
        return false;
      });
 
