@@ -22488,7 +22488,7 @@ function unifiedPopupHtml(f,h=null){
        <div class="popup-factline">${mainLine}</div>
        ${Number.isFinite(f._distance)?`<div class="popup-factline">📍 ${f._distance.toFixed(1)} km od najbliższego centrum${Number.isFinite(f._elev)?' • '+Math.round(f._elev)+' m':''}</div>`:''}
      </div>
-     ${germanSourceDetailsV253(f)}
+     
      ${reasonsHtml}
    </div>
 
