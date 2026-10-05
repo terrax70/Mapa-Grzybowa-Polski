@@ -342,7 +342,7 @@ const osm=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{
 
 const bdl=L.tileLayer.wms(
  'https://mapserver.bdl.lasy.gov.pl/arcgis/services/WMS_BDL_mapa_drzewostanow/MapServer/WMSServer',
- {layers:'3,4,5,6,9,10,11,12',format:'image/png',transparent:true,opacity:.38,attribution:'Bank Danych o Lasach'}
+ {layers:'3,4,5,6,9,10,11,12',format:'image/png',transparent:true,opacity:.55,attribution:'Bank Danych o Lasach'}
 );
 
 // Awaryjna warstwa obrazkowa BDL. Nie daje scoringu, ale działa niezależnie
@@ -5097,7 +5097,7 @@ async function main(){
      setSourceState('forest','ok',`${feats.length} wydzieleń • tryb awaryjny BDL 5/6`);
      st.classList.add('scoring-wait');
      // Zostawiamy delikatny WMS pod spodem, bo fallback ma mniej informacji.
-     if(map.hasLayer(bdl))bdl.setOpacity(.18);
+     if(map.hasLayer(bdl))bdl.setOpacity(.30);
      updateAnalysisLoader('Tryb awaryjny BDL. Dociągam pogodę i dane siedliskowe…');
      st.innerHTML=`⚠️ Tryb awaryjny: pokazuję <b>${feats.length}</b> wydzieleń z BDL 5/6. Końcowy ranking pojawi się za chwilę.`;
    }
@@ -5338,7 +5338,7 @@ async function main(){
 
      // Dopiero faktyczny błąd bazy BDL uruchamia awaryjny oficjalny WMS.
      showBdlFallback();
-     bdl.setOpacity(.42);
+     bdl.setOpacity(.55);
 
      st.innerHTML='⚠️ Nie udało się pobrać danych atrybutowych BDL potrzebnych do scoringu: <b>'+
        escapeHtml(e?.message||String(e))+'</b><br>'+
@@ -31341,3 +31341,70 @@ function eliteEnabledV274(){return currentFilter==='all'&&atlasSelected.size===0
 function nationalRadarEliteColorV277(raw,target,percentile){
  return target?.kind!=='diversity'&&Number.isFinite(raw)&&Number.isFinite(percentile)&&percentile>=.98?'#086b83':null;
 }
+
+
+// Shared fade for the legacy radar, glow and tiled radar canvas.
+function nationalRadarZoomOpacityV281(zoom){
+ const t=Math.max(0,Math.min(1,(Number(zoom)-9)/4));
+ return 1-t*t*(3-2*t);
+}
+(()=>{
+ function sync(zoom){
+  const opacity=nationalRadarZoomOpacityV281(zoom);
+  for(const name of ['nationalRadarPane','nationalRadarGlowPane']){
+   const pane=map.getPane(name);if(!pane)continue;
+   pane.style.transition='opacity 250ms ease';pane.style.opacity=String(opacity);
+  }
+ }
+ map.on('zoomanim',e=>sync(e.zoom));
+ map.on('zoom',()=>sync(map.getZoom()));
+ map.on('zoomend',()=>sync(map.getZoom()));
+ sync(map.getZoom());
+})();
+
+// Automatically expose mapped forest tracks above habitat fills.
+(()=>{
+ const pane=map.createPane('forestTracksV282');pane.style.zIndex='460';
+ const group=L.layerGroup().addTo(map),cache=new Map();
+ const storageKey='forest-tracks-v286';
+ try{const saved=JSON.parse(localStorage.getItem(storageKey)||'[]');for(const [k,v] of saved)if(v.at>Date.now()-7*86400e3&&Array.isArray(v.elements))cache.set(k,v);}catch(_){}
+ function persist(){try{localStorage.setItem(storageKey,JSON.stringify([...cache.entries()].slice(-8)));}catch(_){}}
+let timer,seq=0,busy=false,last='',retries=0;
+ const state=window.forestTracksStatusV285={state:'idle',count:0,error:''};
+ const status=L.control({position:'bottomleft'});status.onAdd=()=>{const el=L.DomUtil.create('div');el.style.cssText='display:none;background:#18251eee;color:white;border-radius:6px;padding:5px 8px;font:11px system-ui;pointer-events:none';return el;};status.addTo(map);
+ function showStatus(text){const el=status.getContainer();el.textContent=text;el.style.display=text?'block':'none';}
+ async function load(){
+  if(map.getZoom()<11){seq++;group.clearLayers();last='';showStatus('');return;}
+  if(busy){timer=setTimeout(load,800);return;}
+  const b=map.getBounds(),c=map.getCenter();
+  // Bound public API requests to a local window while keeping the map responsive.
+  const dy=.028,dx=.028/Math.cos(c.lat*Math.PI/180);
+  const box=[Math.max(b.getSouth(),c.lat-dy),Math.max(b.getWest(),c.lng-dx),Math.min(b.getNorth(),c.lat+dy),Math.min(b.getEast(),c.lng+dx)].map(v=>+v.toFixed(4));
+  let key=box.join(',');
+ for(const [cachedKey,cached] of cache){const bb=cachedKey.split(',').map(Number);if(cached.at>Date.now()-7*86400e3&&bb[0]<=box[0]&&bb[1]<=box[1]&&bb[2]>=box[2]&&bb[3]>=box[3]){key=cachedKey;break;}}
+ if(last===key)return;
+  const token=++seq;busy=true;state.state='loading';showStatus('Pobieram ścieżki OSM…');
+  try{
+   let data=cache.get(key);
+   if(!data){
+    const q='[out:json][timeout:5];way[highway~"^(track|path|bridleway)$"]('+key+');out tags geom;';
+    data=await fetchOverpassWithFallback('data='+encodeURIComponent(q),{fast:true,optional:false,useCircuit:false});
+    if(data.remark||!Array.isArray(data.elements))throw Error('Niepełne ścieżki OSM');
+    data.at=Date.now();cache.set(key,data);if(cache.size>8)cache.delete(cache.keys().next().value);persist();
+   }
+   if(token!==seq||map.getZoom()<11)return;
+   group.clearLayers();
+   for(const e of data.elements){
+    if(!e.geometry||e.geometry.length<2)continue;
+    const pts=e.geometry.map(p=>[p.lat,p.lon]),t=e.tags||{},blocked=['no','private'].includes(t.foot)||(['no','private'].includes(t.access)&&!['yes','designated','permissive'].includes(t.foot));
+    L.polyline(pts,{pane:'forestTracksV282',color:blocked?'#a33737':'#634529',weight:2,opacity:.35,dashArray:t.highway==='track'&&!blocked?null:'5 4'})
+     .bindPopup('<b>'+escapeHtml(t.name||'Droga / ścieżka OSM')+'</b><br>'+ (blocked?'OSM wskazuje ograniczenie dostępu. ':'')+'Przebieg trasy nie potwierdza prawa wstępu lub wjazdu. Sprawdź znaki w terenie.').addTo(group);
+   }
+   last=key;retries=0;state.state='ready';state.count=group.getLayers().length;state.error='';showStatus('');
+  }catch(e){state.state='error';state.error=e.message;showStatus('Ścieżki OSM niedostępne — ponawiam pobieranie');console.warn('Ścieżki OSM',e.message);if(retries++<2){clearTimeout(timer);timer=setTimeout(load,8000);}}
+  finally{busy=false;}
+ }
+ function schedule(){clearTimeout(timer);retries=0;timer=setTimeout(load,700);}
+ map.on('moveend',schedule);schedule();
+ window.forestTracksV282=group;
+})();
