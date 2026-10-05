@@ -1692,9 +1692,11 @@ async function fetchPaged(layerId,outFields,geometry=true,base=BDL_BASE){
        tries:3,
        policy:{ttl:12*3600e3,stale:7*86400e3}
      });
-     const feats=gj?.features||[];
+     if(gj?.error||!Array.isArray(gj?.features))throw new Error(`BDL warstwa ${layerId}: ${gj?.error?.message||'nieprawidłowa odpowiedź'}`);
+     const feats=gj.features;
      rows.push(...feats);
-     if(feats.length<2000)break;
+     if(gj.exceededTransferLimit!==true&&feats.length<2000)break;
+     if(!feats.length)throw new Error(`BDL warstwa ${layerId}: serwer zgłasza dalsze rekordy, ale zwrócił pustą stronę`);
      offset+=feats.length;
      if(offset>180000){
        throw new Error(`BDL warstwa ${layerId}: przekroczono 180000 rekordów w jednym bbox — przerywam zamiast zwrócić niepełne dane`);
@@ -3893,6 +3895,8 @@ async function ensureObservations(type){
    ?`${HUMAN_NAMES[type]} • ${arr.length} obserwacji • ${reduced14.length} po anti-bias`
    :`${HUMAN_NAMES[type]} • 0 obserwacji (iNat raw ${id.raw||0}/accepted ${id.accepted||0}; GBIF raw ${gb.raw||0}/accepted ${gb.accepted||0})`;
  const sourceError=(id.errors?.length||0)+(gb.errors?.length||0)>0;
+ // Partial records remain usable, but failed sources must be retried.
+ if(sourceError)obsLoaded[type]=false;
  setSourceState('obs',sourceError?'error':'ok',sourceError?detail+' • część źródeł niedostępna lub niejednoznaczna':detail);
  showObsLayer(type);
  invalidateObservationScoringCachesV210(type);
@@ -4197,6 +4201,7 @@ async function loadOpenHabitats(){
      const q=`[out:json][timeout:${multi?12:22}];(${selectors});out geom;`;
      const body='data='+encodeURIComponent(q);
      const j=await fetchOverpassWithFallback(body,{fast:multi,optional:true});
+     if(j?.remark||!Array.isArray(j?.elements))throw new Error('OSM: odpowiedź niepełna lub nieprawidłowa');
      return {idx,elements:j?.elements||[]};
    });
 
@@ -22087,8 +22092,8 @@ function popupHtmlBase(f){
    (mapMode==='today'?`<div class="factor"><span>Sezon gatunku</span><b>${(seasonScore(type)/10).toFixed(1)}/10</b></div>`:'')+
    `<div class="factor"><span>Surowy wynik</span><b>${v.score.toFixed(1)}/10</b></div>`+
    `<div class="factor"><span>Host gate</span><b>${Math.round(hostGate(type,f)*100)}%</b></div>`+
-   `<div class="factor"><span>Gleba</span><b>${soilSuitability(type,f).toFixed(1)}</b></div>`+
-   `<div class="factor"><span>Mikroteren</span><b>${moistureTerrainScore(type,f).toFixed(1)}</b></div></div>`+
+   `<div class="factor"><span>Gleba</span><b>${soilRaw?soilSuitability(type,f).toFixed(1):'Brak danych'}</b></div>`+
+   `<div class="factor"><span>Mikroteren</span><b>${Number.isFinite(f._relElev)?moistureTerrainScore(type,f).toFixed(1):'Brak danych'}</b></div></div>`+
    (soilRaw?`<div class="popup-mini" style="margin-top:6px">SoilGrids WCS: pH ${soilRaw.ph.toFixed(1)} • SOC ${soilRaw.soc.toFixed(1)} • piasek ${soilRaw.sand.toFixed(1)}</div>`:'')+
    (Number.isFinite(hist.nearest)?`<div class="popup-mini">Najbliższa publiczna obserwacja: ${hist.nearest.toFixed(1)} km${hist.rawCount2?` • ≤2 km: ${hist.count2} niezależnych potwierdzeń z ${hist.rawCount2} zgłoszeń`:''}</div>`:'')+`</details>`+
    `<details class="popup-more"><summary>🍄 Co jeszcze może tu pasować?</summary>${what.slice(0,5).map(([s,t])=>`<div class="what-row"><span>${HUMAN_NAMES[t]}</span><b>${s.toFixed(1)}/10</b></div>`).join('')}</details>`+
@@ -22458,8 +22463,8 @@ function unifiedPopupHtml(f,h=null){
      (primaryScoreInfo?`<div class="factor"><span>Łączny mnożnik</span><b>${Math.round(primaryScoreInfo.combinedMultiplier*100)}%</b></div>`:'')+
      (primaryScoreInfo?`<div class="factor"><span>Ocena praktyczna</span><b>${displayedPrimarySpeciesScore.toFixed(1)}/10</b></div>`:'')+
      `<div class="factor"><span>Dopasowanie gospodarza</span><b>${Math.round(hostGate(type,f)*100)}%</b></div>`+
-     `<div class="factor"><span>Gleba</span><b>${soilSuitability(type,f).toFixed(1)}</b></div>`+
-     `<div class="factor"><span>Mikroteren</span><b>${moistureTerrainScore(type,f).toFixed(1)}</b></div></div>`+
+     `<div class="factor"><span>Gleba</span><b>${soilRaw?soilSuitability(type,f).toFixed(1):'Brak danych'}</b></div>`+
+     `<div class="factor"><span>Mikroteren</span><b>${Number.isFinite(f._relElev)?moistureTerrainScore(type,f).toFixed(1):'Brak danych'}</b></div></div>`+
      (soilRaw?`<div class="popup-mini" style="margin-top:6px">SoilGrids: pH ${soilRaw.ph.toFixed(1)} • SOC ${soilRaw.soc.toFixed(1)} • piasek ${soilRaw.sand.toFixed(1)}</div>`:'')+
      (Number.isFinite(hist.nearest)?`<div class="popup-mini">Najbliższa publiczna obserwacja: ${hist.nearest.toFixed(1)} km${hist.rawCount2?` • ≤2 km: ${hist.count2} niezależnych potwierdzeń z ${hist.rawCount2} zgłoszeń`:''}</div>`:'')+
      `<div class="popup-mini">🧭 Mozaika eksploracyjna: ${exploration.score.toFixed(1)}/10 • efektywne kategorie: drzewa ${exploration.treeEffective.toFixed(1)}, siedliska ${exploration.habitatEffective.toFixed(1)}, klasy wieku ${exploration.ageEffective.toFixed(1)} • pokrycie danych ${Math.round(exploration.dataCoverage*100)}%. <b>Nie wpływa na ocenę biologiczną.</b></div>`+
@@ -22467,7 +22472,7 @@ function unifiedPopupHtml(f,h=null){
      `</details>`;
  }
 
- return `<div class="popup-card unified-place-popup">
+ return `<div class="popup-card unified-place-popup">${placeDataWarningsV273(f)}
    <div class="u-place-summary">
      <div class="u-place-summary-top">
        <div>
@@ -31315,3 +31320,13 @@ restorePlaceLinkV257();window.addEventListener('hashchange',restorePlaceLinkV257
  window.visualViewport?.addEventListener('resize',queue,{passive:true});
  queue();
 })();
+
+function placeDataWarningsV273(f){
+ const missing=[];
+ if(mapMode==='today'&&!weatherReady)missing.push('aktualnej pogody');
+ if(!soilAt(f._center))missing.push('gleby dla tego miejsca');
+ if(!Number.isFinite(f._relElev))missing.push('mikrorzeźby terenu');
+ if(sourceStates.reserve!=='ok')missing.push('pełnych danych o ochronie i dostępie');
+ if(!missing.length)return '';
+ return '<div class="popup-mini" role="status" style="margin:8px 0;padding:8px;border:1px solid #b78a35;border-radius:8px"><b>Ocena niepełna.</b> Brakuje: '+missing.map(escapeHtml).join(', ')+'. Brakujące czynniki mogą korzystać z wartości zastępczych. Brak zakazu na mapie nie potwierdza prawa wejścia.</div>';
+}
