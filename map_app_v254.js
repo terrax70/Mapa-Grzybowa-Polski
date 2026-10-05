@@ -21789,6 +21789,8 @@ function updateScoreLegend(){
  mode.textContent=mapMode==='today'?'DZIŚ':'OGÓLNIE';
  bar.style.background=unifiedLegendGradient();
  setLegendWords(['odpuść','rezerwowo','średnio','warto','TOP']);
+ updateEliteThresholdV274();
+ if(eliteEnabledV274()){bar.style.background='linear-gradient(90deg,'+UNIFIED_COLOR_BANDS.map((c,i)=>c+' '+(i/UNIFIED_COLOR_BANDS.length*96).toFixed(1)+'%').join(',')+',#116f38 96%,#086b83 96%,#086b83 100%)';mode.textContent='OGÓLNIE · turkus: ścisły TOP';bar.title='Turkus: wynik co najmniej 9,5/10 i powyżej 98. percentyla analizowanych wydzieleń. Remisy na progu nie są wyróżniane.';}
 }
 
 function auditColorScaleCalibration(){
@@ -22049,6 +22051,7 @@ function analysisRenderStyleV225(f,show=true){
  ){
    return {color:'transparent',weight:0,fillColor:'#6f8174',fillOpacity:.052,opacity:0};
  }
+ if(show&&eliteEnabledV274()&&!f?._blocked&&stableAnchorScore(f)>=9.5&&stableAnchorScore(f)>eliteThresholdV274)return {...st,fillColor:'#086b83',color:'#034b60',fillOpacity:Math.max(.75,st.fillOpacity||0),weight:Math.max(1.2,st.weight||0),opacity:.9};
  return st;
 }
 
@@ -31329,4 +31332,14 @@ function placeDataWarningsV273(f){
  if(sourceStates.reserve!=='ok')missing.push('pełnych danych o ochronie i dostępie');
  if(!missing.length)return '';
  return '<div class="popup-mini" role="status" style="margin:8px 0;padding:8px;border:1px solid #b78a35;border-radius:8px"><b>Ocena niepełna.</b> Brakuje: '+missing.map(escapeHtml).join(', ')+'. Brakujące czynniki mogą korzystać z wartości zastępczych. Brak zakazu na mapie nie potwierdza prawa wejścia.</div>';
+}
+
+// Presentation only: ties at the percentile boundary stay in the ordinary scale.
+var eliteThresholdV274=Infinity;
+function eliteEnabledV274(){return mapMode!=='today'&&currentFilter==='all'&&atlasSelected.size===0&&analysisScoringReady;}
+function updateEliteThresholdV274(){
+ eliteThresholdV274=Infinity;
+ if(!eliteEnabledV274())return;
+ const scores=allFeatures.filter(f=>!f._blocked&&f._kind!=='open').map(stableAnchorScore).filter(Number.isFinite).sort((a,b)=>a-b);
+ if(scores.length)eliteThresholdV274=scores[Math.min(scores.length-1,Math.floor(scores.length*.98))];
 }
