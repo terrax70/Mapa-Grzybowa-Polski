@@ -1,3 +1,10 @@
+function observationLicenseUrlV271(value){
+ const v=String(value||'').trim().toLowerCase().replace(/_/g,'-');
+ if(v==='cc0'||/^https?:\/\/creativecommons.org\/publicdomain\/zero\/1\.0\/?$/.test(v))return 'https://creativecommons.org/publicdomain/zero/1.0/';
+ if(['cc-by','cc-by-nc'].includes(v))return 'https://creativecommons.org/licenses/'+v.slice(3)+'/4.0/';
+ const m=v.match(/^https?:\/\/creativecommons.org\/licenses\/(by|by-nc)\/(\d\.\d)\/?$/);
+ return m?'https://creativecommons.org/licenses/'+m[1]+'/'+m[2]+'/':'';
+}
 
 const CENTER = [52.0692,19.4803]; // geometryczny środek Polski — tylko startowy widok mapy
 let RADIUS_KM = 10;
@@ -3569,6 +3576,7 @@ async function fetchINat(type){
      diag.raw+=results.length;
 
      for(const o of results){
+       if(!observationLicenseUrlV271(o.license_code)){diag.licenseRejected=(diag.licenseRejected||0)+1;continue;}
        if(Number(o.taxon?.id)!==Number(taxon.id)&&!(o.taxon?.ancestor_ids||[]).includes(Number(taxon.id))){diag.taxonRejected=(diag.taxonRejected||0)+1;continue;}
        if(o.captive===true){diag.cultivatedRejected=(diag.cultivatedRejected||0)+1;continue;}
        // Brak wartości traktujemy jako brak aktywnego ukrycia.
@@ -3656,6 +3664,7 @@ async function fetchGBIF(type){
        diag.raw+=results.length;
 
        for(const o of results){
+         if(!observationLicenseUrlV271(o.license)){diag.licenseRejected=(diag.licenseRejected||0)+1;continue;}
          if(Number(o.speciesKey)!==Number(taxon.key)||o.occurrenceStatus==='ABSENT'){diag.taxonRejected=(diag.taxonRejected||0)+1;continue;}
          const lat=Number(o.decimalLatitude),lon=Number(o.decimalLongitude);
          if(!observationCoordinatesV222(o.decimalLatitude,o.decimalLongitude)){
@@ -3689,7 +3698,7 @@ async function fetchGBIF(type){
            id:'gbif-'+(o.key||Math.random()),
            source:'GBIF',taxon:o.scientificName||SCI_NAMES[type],
            recordUrl:'https://www.gbif.org/occurrence/'+o.key,
-           author:o.recordedBy||o.institutionCode||o.datasetName||'',license:o.license||''
+           author:o.recordedBy||o.institutionCode||o.datasetName||'',license:o.license||'',datasetName:o.datasetName||'',datasetUrl:o.datasetKey?'https://www.gbif.org/dataset/'+o.datasetKey:''
          });
          diag.accepted++;
        }
@@ -3909,7 +3918,7 @@ function showObsLayer(type){
  for(const o of arr.slice(0,120)){
    L.circleMarker([o.lat,o.lon],{
      radius:3.2,weight:1,color:'#ffffff',opacity:.92,fillColor:'#9b59b6',fillOpacity:.88
-   }).bindPopup(`<b>${HUMAN_NAMES[type]}</b><br>${new Date(o.date).toLocaleDateString('pl-PL')}<br>${escapeHtml(o.source)}${o.recordUrl?` · <a href="${escapeHtml(o.recordUrl)}" target="_blank" rel="noopener">Rekord źródłowy</a>`:''}<br>${escapeHtml(o.author||'Autor: zobacz rekord źródłowy')} · ${escapeHtml(o.license||'Licencja: zobacz rekord źródłowy')}<br><span style="opacity:.72">Publiczna obserwacja; lokalizacja nie jest gwarancją aktualnego owocnikowania.</span>`).addTo(obsGroup);
+   }).bindPopup(`<b>${HUMAN_NAMES[type]}</b><br>${new Date(o.date).toLocaleDateString('pl-PL')}<br>${escapeHtml(o.source)}${o.recordUrl?` · <a href="${escapeHtml(o.recordUrl)}" target="_blank" rel="noopener">Rekord źródłowy</a>`:''}<br>${escapeHtml(o.author||'Autor: zobacz rekord źródłowy')} · ${observationLicenseUrlV271(o.license)?`<a href="${observationLicenseUrlV271(o.license)}" target="_blank" rel="noopener">${escapeHtml(o.license)}</a>`:'Licencja nieznana'}${o.datasetUrl?`<br><a href="${escapeHtml(o.datasetUrl)}" target="_blank" rel="noopener">${escapeHtml(o.datasetName||'Zbiór źródłowy GBIF')}</a>`:''}<br><span style="opacity:.72">Publiczna obserwacja; lokalizacja nie jest gwarancją aktualnego owocnikowania.</span>`).addTo(obsGroup);
  }
 }
 
@@ -12715,7 +12724,8 @@ async function fetchGbifPolandValidationOccurrences(type,{maxRecords=1500}={}){
      diag.pages++;diag.raw+=results.length;
 
      for(const o of results){
-       if(Number(o.speciesKey)!==Number(taxon.key)||o.occurrenceStatus==='ABSENT'){diag.taxonRejected=(diag.taxonRejected||0)+1;continue;}
+       if(!observationLicenseUrlV271(o.license)){diag.licenseRejected=(diag.licenseRejected||0)+1;continue;}
+         if(Number(o.speciesKey)!==Number(taxon.key)||o.occurrenceStatus==='ABSENT'){diag.taxonRejected=(diag.taxonRejected||0)+1;continue;}
        const lat=Number(o.decimalLatitude),lon=Number(o.decimalLongitude);
        if(!observationCoordinatesV222(o.decimalLatitude,o.decimalLongitude)){
          diag.noCoords++;continue;
