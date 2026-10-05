@@ -14,22 +14,37 @@ function readMagic(view){return td.decode(new Uint8Array(view.buffer,view.byteOf
 function cacheKey(kind,cell,y,x,species){return [kind,cell,y,x,species||''].join('|');}
 
 class RadarV4{
- constructor(baseUrl='./data/radar_v4',{maxCacheEntries=128}={}){
+ constructor(baseUrl='./data/radar_v4',{maxCacheEntries=128,maxConcurrent=6,timeoutMs=15000}={}){
    this.baseUrl=String(baseUrl||'./data/radar_v4').replace(/\/$/,'');
    this.manifest=null;
+   this.maxConcurrent=Math.max(1,Math.min(16,Number(maxConcurrent)||6));
+   this.timeoutMs=Math.max(10,Number(timeoutMs)||15000);
+   this.activeRequests=0;this.waiters=[];this.initPromise=null;
    this.maxCacheEntries=Math.max(8,Number(maxCacheEntries)||128);
    this.cache=new Map();
    this.inflight=new Map();
    this.stats={requests:0,cacheHits:0,inflightHits:0,bytes:0,fetchMs:0,decodeMs:0,errors:0};
  }
+ async _request(url,decode){
+   if(this.activeRequests>=this.maxConcurrent)await new Promise(resolve=>this.waiters.push(resolve));
+   else this.activeRequests++;
+   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),this.timeoutMs);
+   try{
+     const r=await fetch(url,{cache:'default',signal:controller.signal});
+     if(!r.ok)throw new Error(`Radar v4 HTTP ${r.status}: ${url}`);
+     return await decode(r);
+   }finally{
+     clearTimeout(timer);
+     const next=this.waiters.shift();if(next)next();else this.activeRequests--;
+   }
+ }
  async init(){
    if(this.manifest)return this.manifest;
-   const r=await fetch(`${this.baseUrl}/manifest.json`,{cache:'default'});
-   if(!r.ok)throw new Error(`Radar v4 manifest HTTP ${r.status}`);
-   const m=await r.json();
-   if(m?.format!=='MapaGrzybowRadarV4')throw new Error('Nieprawidłowy manifest Radar v4');
-   this.manifest=m;
-   return m;
+   if(!this.initPromise)this.initPromise=this._request(`${this.baseUrl}/manifest.json`,r=>r.json()).then(m=>{
+     if(m?.format!=='MapaGrzybowRadarV4')throw new Error('Nieprawidłowy manifest Radar v4');
+     this.manifest=m;return m;
+   }).finally(()=>{this.initPromise=null;});
+   return this.initPromise;
  }
  lod(cellMeters){return this.manifest?.lods?.[`${cellMeters}m`]||null;}
  availableLods(){return Object.values(this.manifest?.lods||{}).map(x=>Number(x.cellMeters)).filter(Number.isFinite).sort((a,b)=>b-a);}
@@ -81,10 +96,9 @@ class RadarV4{
      let rel=`${cellMeters}m/${kind}/y${y}_x${x}.bin`;
      if(kind==='species')rel=`${cellMeters}m/species/${encodeURIComponent(speciesId)}/y${y}_x${x}.bin`;
      const t0=performance.now();
-     const r=await fetch(`${this.baseUrl}/${rel}`,{cache:'default'});
+     const ab=await this._request(`${this.baseUrl}/${rel}`,r=>r.arrayBuffer());
      this.stats.fetchMs+=performance.now()-t0;this.stats.requests++;
-     if(!r.ok)throw new Error(`Radar v4 HTTP ${r.status}: ${rel}`);
-     const ab=await r.arrayBuffer();this.stats.bytes+=ab.byteLength;
+     this.stats.bytes+=ab.byteLength;
      const d0=performance.now(),v=this._decode(kind,ab,cellMeters,y,x,speciesId);
      this.stats.decodeMs+=performance.now()-d0;
      this._touch(k,v);return v;
@@ -112,7 +126,7 @@ class RadarV4{
    await this.init();
    const lod=this.lod(cellMeters);if(!lod)throw new Error(`Brak LOD ${cellMeters}m`);
    if(speciesId&&!this.manifest.species?.some(s=>s.id===speciesId))throw new Error(`Radar v4: nieznany gatunek ${speciesId}`);
-   const keys=this.tileKeysForBounds(bounds,cellMeters),chunks=await Promise.all(keys.map(async({y,x})=>{
+   const keys=this.tileKeysForBounds(bounds,cellMeters),chunks=await Promise.allSettled(keys.map(async({y,x})=>{
      const [base,values]=await Promise.all([
        this._fetch('base',cellMeters,y,x),
        speciesId?this._fetch('species',cellMeters,y,x,speciesId):(overview?this._fetch('overview',cellMeters,y,x):null)
@@ -126,7 +140,11 @@ class RadarV4{
      }
      return rows;
    }));
-   return chunks.flat();
+   const failedTiles=chunks.flatMap((result,i)=>result.status==='rejected'?[{...keys[i],message:result.reason?.message||String(result.reason)}]:[]);
+   if(keys.length&&failedTiles.length===keys.length)throw new Error('Radar: nie udało się pobrać żadnego kafelka. Spróbuj ponownie.');
+   const rows=chunks.flatMap(result=>result.status==='fulfilled'?result.value:[]);
+   rows.loadStatus={totalTiles:keys.length,loadedTiles:keys.length-failedTiles.length,failedTiles,partial:failedTiles.length>0};
+   return rows;
  }
  resetStats(){this.stats={requests:0,cacheHits:0,inflightHits:0,bytes:0,fetchMs:0,decodeMs:0,errors:0};}
  clearCache(){this.cache.clear();this.inflight.clear();}

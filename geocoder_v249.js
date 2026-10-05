@@ -56,8 +56,25 @@
    queue=job.catch(()=>{});
    return job;
  }
+ async function townFallback(q,{signal}={}){
+   if(signal?.aborted)throw aborted();
+   const controller=new AbortController(),cancel=()=>controller.abort();
+   signal?.addEventListener('abort',cancel,{once:true});
+   const timer=setTimeout(cancel,10000);
+   try{
+     const url='https://geocoding-api.open-meteo.com/v1/search?'+new URLSearchParams({name:q.trim(),count:'20',language:'pl',format:'json'});
+     const r=await fetch(url,{signal:controller.signal});
+     if(!r.ok)throw new Error('Zapasowa wyszukiwarka: HTTP '+r.status);
+     const data=await r.json();
+     if(signal?.aborted)throw aborted();
+     return (data.results||[]).filter(x=>['PL','DE'].includes(x.country_code)&&Number.isFinite(x.latitude)&&Number.isFinite(x.longitude)).slice(0,8).map(x=>({lat:x.latitude,lon:x.longitude,countryCode:x.country_code,display_name:[x.name,x.admin1,x.country].filter(Boolean).join(', '),detail:'Miejscowość — Open-Meteo / GeoNames (wyszukiwanie zapasowe)'}));
+   }finally{clearTimeout(timer);signal?.removeEventListener('abort',cancel);}
+ }
  global.mapGeocoderV249={
-   search:(q,options)=>request('/api/',[['q',q.trim()],['limit','8'],['countrycode','PL'],['countrycode','DE']],options),
+   search:async(q,options={})=>{
+     try{return await request('/api/',[['q',q.trim()],['limit','8'],['countrycode','PL'],['countrycode','DE']],options);}
+     catch(e){if(options.signal?.aborted||e.name==='AbortError')throw e;return townFallback(q,options);}
+   },
    reverse:async(lat,lon)=>{
      const rows=await request('/reverse/',{lat:String(lat),lon:String(lon),limit:'1'});
      return rows[0]||null;

@@ -386,10 +386,14 @@ async function refreshV235(){
       bytes:V235.loader.stats.bytes,requests:V235.loader.stats.requests,cacheHits:V235.loader.stats.cacheHits
     };
     try{
-      nationalRadarLastKey=key;nationalRadarLastCount=rows.length;nationalRadarLastStats=stats;nationalRadarLastError='';
+      nationalRadarLastKey=cells.loadStatus?.partial?'':key;nationalRadarLastCount=rows.length;nationalRadarLastStats={...stats,loadStatus:cells.loadStatus};nationalRadarLastError=cells.loadStatus?.partial?'Niepełny radar — część danych niedostępna':'';
     }catch(_){ }
     V235.last={mode:'v4',zoom:z,target,lodMeters:mode.cellMeters,cells:cells.length,shown:rows.length,tiles:tileKeys.length,viewportSig,viewportPadding:true,regionalContinuity:regional,hybridUnderlay:regional,underlayLayers:regional?regionalUnderlayLayers:0,coarseUnderlayCells:regional?coarseRows.length:0,continuityRule:regional?'legacy 5 km underlay when available + v4-derived 5 km support underlay + v4 1 km detail':'visible weak forest cells',totalMs:performance.now()-V235Start};
     applyLegend(target);
+    let notice=document.getElementById('radarLoadStatus');
+    if(!notice){notice=document.createElement('div');notice.id='radarLoadStatus';notice.setAttribute('role','status');notice.style.cssText='position:absolute;bottom:34px;left:12px;z-index:1000;background:#fff4d6;color:#403416;padding:8px 12px;border-radius:8px;max-width:280px;font-size:12px;pointer-events:none';map.getContainer().appendChild(notice);}
+    notice.hidden=!cells.loadStatus?.partial;
+    notice.textContent=cells.loadStatus?.partial?`Radar niepełny: ${cells.loadStatus.loadedTiles}/${cells.loadStatus.totalTiles} kafelków. Brak koloru może oznaczać brak danych.`:'';
     console.debug('V235 RADAR V4 RENDER',V235.last);
   }catch(e){
     if(seq!==V235.requestSeq)return;
