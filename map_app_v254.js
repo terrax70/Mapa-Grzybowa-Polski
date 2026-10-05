@@ -21789,8 +21789,8 @@ function updateScoreLegend(){
  mode.textContent=mapMode==='today'?'DZIŚ':'OGÓLNIE';
  bar.style.background=unifiedLegendGradient();
  setLegendWords(['odpuść','rezerwowo','średnio','warto','TOP']);
- updateEliteThresholdV274();
- if(eliteEnabledV274()){bar.style.background='linear-gradient(90deg,'+UNIFIED_COLOR_BANDS.map((c,i)=>c+' '+(i/UNIFIED_COLOR_BANDS.length*96).toFixed(1)+'%').join(',')+',#116f38 96%,#086b83 96%,#086b83 100%)';mode.textContent='OGÓLNIE · turkus: ścisły TOP';bar.title='Turkus: wynik co najmniej 9,5/10 i powyżej 98. percentyla analizowanych wydzieleń. Remisy na progu nie są wyróżniane.';}
+
+ if(eliteEnabledV274()){bar.style.background='linear-gradient(90deg,'+UNIFIED_COLOR_BANDS.map((c,i)=>c+' '+(i/UNIFIED_COLOR_BANDS.length*96).toFixed(1)+'%').join(',')+',#116f38 96%,#086b83 96%,#086b83 100%)';mode.textContent=(mapMode==='today'?'DZIŚ':'OGÓLNIE')+' · turkus: ścisły TOP';bar.title='Turkus: ocena miejsca co najmniej 9,8/10. Ten sam próg w każdym rejonie; jednakowe wyniki mają jednakowe wyróżnienie.';}
 }
 
 function auditColorScaleCalibration(){
@@ -22051,7 +22051,7 @@ function analysisRenderStyleV225(f,show=true){
  ){
    return {color:'transparent',weight:0,fillColor:'#6f8174',fillOpacity:.052,opacity:0};
  }
- if(show&&eliteEnabledV274()&&!f?._blocked&&stableAnchorScore(f)>=9.5&&stableAnchorScore(f)>eliteThresholdV274)return {...st,fillColor:'#086b83',color:'#034b60',fillOpacity:Math.max(.75,st.fillOpacity||0),weight:Math.max(1.2,st.weight||0),opacity:.9};
+ if(show&&eliteEnabledV274()&&!f?._blocked&&(mapMode==='today'?todayScoreForStyle(f):stableAnchorScore(f))>=9.8)return {...st,fillColor:'#086b83',color:'#034b60',fillOpacity:Math.max(.75,st.fillOpacity||0),weight:Math.max(1.2,st.weight||0),opacity:.9};
  return st;
 }
 
@@ -27545,6 +27545,7 @@ function nationalRadarApplyLegend(target){
  bands.forEach((fill,i)=>{ const a=i/n*100,b=(i+1)/n*100; parts.push(`${fill} ${a.toFixed(1)}%`,`${fill} ${b.toFixed(1)}%`); });
  bar.style.background=`linear-gradient(90deg,${parts.join(',')})`;
  setLegendWords(['słabo','przeciętnie','dobrze','bardzo dobrze','TOP Polska']);
+ if(target.kind!=='diversity'){bar.style.background='linear-gradient(90deg,'+bands.map((c,i)=>c+' '+(i/bands.length*96).toFixed(1)+'%').join(',')+',#116f38 96%,#086b83 96%,#086b83 100%)';bar.title='Turkus: górne 2% krajowego rankingu radaru w danej rozdzielczości. Radar przedstawia potencjał, bez aktualnej pogody.';mode.textContent+=' · turkus: TOP 2% Polski';}
 }
 
 async function refreshNationalRadar(){
@@ -27617,7 +27618,7 @@ async function refreshNationalRadar(){
      const bounds=nationalRadarRowBounds(x.row);
      if(!bounds.flat().every(Number.isFinite))continue;
 
-     const fillColor=nationalRadarColorVisual(x.visual);
+     const fillColor=nationalRadarEliteColorV277(x.raw,target,x.percentile)||nationalRadarColorVisual(x.visual);
 
      if(glowOpacity>0){
        L.rectangle(nationalRadarExpandedBounds(bounds,.18),{
@@ -31334,12 +31335,9 @@ function placeDataWarningsV273(f){
  return '<div class="popup-mini" role="status" style="margin:8px 0;padding:8px;border:1px solid #b78a35;border-radius:8px"><b>Ocena niepełna.</b> Brakuje: '+missing.map(escapeHtml).join(', ')+'. Brakujące czynniki mogą korzystać z wartości zastępczych. Brak zakazu na mapie nie potwierdza prawa wejścia.</div>';
 }
 
-// Presentation only: ties at the percentile boundary stay in the ordinary scale.
-var eliteThresholdV274=Infinity;
-function eliteEnabledV274(){return mapMode!=='today'&&currentFilter==='all'&&atlasSelected.size===0&&analysisScoringReady;}
-function updateEliteThresholdV274(){
- eliteThresholdV274=Infinity;
- if(!eliteEnabledV274())return;
- const scores=allFeatures.filter(f=>!f._blocked&&f._kind!=='open').map(stableAnchorScore).filter(Number.isFinite).sort((a,b)=>a-b);
- if(scores.length)eliteThresholdV274=scores[Math.min(scores.length-1,Math.floor(scores.length*.98))];
+// Presentation only; absolute threshold shared by all regions.
+function eliteEnabledV274(){return currentFilter==='all'&&atlasSelected.size===0&&analysisScoringReady&&(mapMode!=='today'||(weatherReady&&sourceStates.weather==='ok'));}
+
+function nationalRadarEliteColorV277(raw,target,percentile){
+ return target?.kind!=='diversity'&&Number.isFinite(raw)&&Number.isFinite(percentile)&&percentile>=.98?'#086b83':null;
 }

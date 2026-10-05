@@ -377,7 +377,7 @@ async function refreshV235(){
     for(const it of items){
       const shownVi={...it.vi,visual:it.displayVisual};
       const opacity=opacityForV4(shownVi,regional);if(!(opacity>0))continue;
-      rows.push({bounds:it.cell.bounds,opacity,color:colorFor(it.displayVisual),...it.vi,displayVisual:it.displayVisual});
+      rows.push({bounds:it.cell.bounds,opacity,color:(typeof nationalRadarEliteColorV277==='function'?nationalRadarEliteColorV277(it.vi.raw,target,it.vi.percentile):null)||colorFor(it.displayVisual),...it.vi,displayVisual:it.displayVisual});
     }
     if(!regional)hideOldRadar();V235.canvas.setRows(regional?[...coarseRows,...rows]:rows);
     const stats={
