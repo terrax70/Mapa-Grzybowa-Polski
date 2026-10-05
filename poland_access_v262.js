@@ -30,10 +30,19 @@ async function loadPolishAccessAreasV262(){
  }));
  const seen=new Set();let count=0;
  for(const row of rows){if(row.status!=='fulfilled')continue;for(const f of row.value){
-  if(seen.has(f.id))continue;seen.add(f.id);f._src='osm-pl-access';f._fastBBox=geometryFastBBox(f.geometry);reserves.push(f);count++;
+  if(!blanketProtectionExclusionV270(f.properties)||seen.has(f.id))continue;seen.add(f.id);f._src='osm-pl-access';f._fastBBox=geometryFastBBox(f.geometry);reserves.push(f);count++;
   if(!analysisHeadlessBatchMode)L.geoJSON(f,{style:{color:'#ff334f',weight:2,fillOpacity:.12,dashArray:'7 5'},onEachFeature:(ft,l)=>l.bindPopup('<b>'+escapeHtml(ft.properties?.name||'Obszar wyłączony z rekomendacji')+'</b><br>Źródło: OpenStreetMap. Sprawdź aktualne zasady dostępu.')}).addTo(reserveGroup);
  }}
  polandAccessStatusV262.osm=rows.every(r=>r.status==='fulfilled');
  polandAccessStatusV262.osmErrors=rows.filter(r=>r.status==='rejected').map(r=>String(r.reason?.message||r.reason));
  return {complete:polandAccessStatusV262.osm,count};
+}
+
+// Landscape parks and Natura 2000 do not imply a blanket collection ban.
+function blanketProtectionExclusionV270(p){
+ p=p||{};
+ if(explicitForestRestrictionV262(p))return true;
+ const names=[p.name,p.nazwa,p.NAME,p.NAZWA,p.designation,p.protection_title,p["protection_title:pl"]].filter(Boolean).join(' ').toLowerCase();
+ if(/park.*krajobrazow|landscape park|użytek ekologiczny|environmental use|natura.?2000|obszar chronionego krajobrazu/.test(names)||['5','19'].includes(String(p.protect_class)))return false;
+ return true;
 }

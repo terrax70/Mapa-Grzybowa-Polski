@@ -4565,7 +4565,7 @@ async function loadReserves(){
  polandAccessStatusV262.bdlError='';
  try{
    const rr=await fetchPaged(57,'*',true,BDL_FULL);
-   reserves=rr.filter(f=>f.geometry);
+   reserves=rr.filter(f=>f.geometry&&blanketProtectionExclusionV270(f.properties));
    for(const r of reserves)r._fastBBox=geometryFastBBox(r.geometry);
    if(!analysisHeadlessBatchMode){
      for(const r of reserves){
