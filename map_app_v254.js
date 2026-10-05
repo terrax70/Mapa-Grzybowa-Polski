@@ -835,7 +835,6 @@ L.control.layers({'OpenStreetMap':osm}, {
  'Rezerwaty / zakazy':reserveGroup,
  'iNaturalist / GBIF — historia (radar)':obsGroup,
  'OSM — łąki / polany / pastwiska':openGroup,
- 'Parkingi leśne':forestParkingGroup,
  'BDL — oficjalna warstwa awaryjna':bdl,
  'Wybrane rejony':selectionGroup,
  'Radar Polski — statyczny':nationalRadarGroup
@@ -4558,6 +4557,7 @@ function pointInsideFastBBox(c,bb){
 }
 
 async function loadReserves(){
+ polandAccessStatusV262.bdlError='';
  try{
    const rr=await fetchPaged(57,'*',true,BDL_FULL);
    reserves=rr.filter(f=>f.geometry);
@@ -4570,15 +4570,22 @@ async function loadReserves(){
        }).addTo(reserveGroup);
      }
    }
+   return true;
  }catch(e){
    console.warn('Rezerwaty:',e);
+   polandAccessStatusV262.bdlError=String(e?.message||e);
+   return false;
  }
 }
 function inReserve(f){
  const c=f._center;
+ if(explicitForestRestrictionV262(f.properties))return true;
+ const bb=geometryFastBBox(f.geometry);
  for(const r of reserves){
-   if(!pointInsideFastBBox(c,r._fastBBox))continue;
-   if(pointInGeom(c,r.geometry))return true;
+   if(bb&&r._fastBBox&&(bb[0]>r._fastBBox[2]||bb[2]<r._fastBBox[0]||bb[1]>r._fastBBox[3]||bb[3]<r._fastBBox[1]))continue;
+   if(f.geometry&&['Polygon','MultiPolygon'].includes(f.geometry.type)&&['Polygon','MultiPolygon'].includes(r.geometry?.type)){
+    if(deGeometriesOverlapV253(f.geometry,r.geometry))return true;
+   }else if(pointInsideFastBBox(c,r._fastBBox)&&pointInGeom(c,r.geometry))return true;
  }
  return false;
 }
@@ -4839,10 +4846,11 @@ async function loadKoEnrichment(feats){
 }
 async function loadReserveEnrichment(feats){
  try{
-   await loadReserves();
-   feats.forEach(f=>f._blocked=inReserve(f));
+   polandAccessStatusV262.bdl=await loadReserves();
+   const access=await loadPolishAccessAreasV262();
+   feats.forEach(f=>f._blocked=f._blocked||inReserve(f));
    invalidateScoringCaches('reserve enrichment');
-   return true;
+   return polandAccessStatusV262.bdl&&access.complete;
  }catch(e){
    console.warn('Rezerwaty enrichment',e);
    return false;
@@ -5146,8 +5154,8 @@ async function main(){
 
    const reservePromise=perfTimed('reserve',loadReserveEnrichment(feats))
      .then(ok=>{
-       setSourceState('reserve',ok?'ok':'error',ok?'Ochrona załadowana':'Warstwa ochronna niedostępna');
-       if(ok&&!deferSecondaryRenders)render();
+       setSourceState('reserve',ok?'ok':'error',polandProtectionDetailV263());
+       if(!deferSecondaryRenders)render();
        return ok;
      })
      .catch(e=>{
@@ -29161,6 +29169,7 @@ function ensureHotspotAccessInfoCacheV210(){
  return token;
 }
 function forestParkingRows(){
+ return []; // Parking recommendations disabled until legal access can be verified.
  if(!hotspotParkingReady||!allFeatures.length)return [];
  const key=`${hotspotAccessCacheTokenV210()}|${atlasSelectionKey()}|${currentFilter}|${mapMode}|parking`;
  if(key===forestParkingRowsCacheKeyV210)return forestParkingRowsCacheV210;
@@ -29208,6 +29217,7 @@ function forestParkingPopupHtml(p){
 
 function renderForestParkingLayer(){
  forestParkingGroup.clearLayers();
+ return;
 
  if(map.getZoom()<12)return;
  if(!hotspotParkingReady)return;
@@ -29239,6 +29249,7 @@ map.on('layeradd',e=>{
 
 
 async function loadHotspotAccessContext(hotspots){
+ return false; // Do not fetch or recommend car access while parking is disabled.
  if(Date.now()<hotspotAccessGlobalRetryAfter)return false;
  if(hotspotAccessLoading){hotspotAccessPendingRefresh=true;return false;}
  const parkingSample=hotspotAccessSpatialSample(hotspots,5,1.6);
@@ -29390,6 +29401,7 @@ async function loadHotspotAccessContext(hotspots){
 
 function scheduleHotspotAccessLoad(hotspots,delay=2600){
  clearTimeout(hotspotAccessTimer);
+ return;
  // v226: dojazd OSM jest detalem lokalnym. Przy 100 km hotspoty są rozrzucone
  // po ogromnym obszarze i taki request tylko przeciąża Overpass oraz generuje timeouty.
  if(RADIUS_KM>=80){
@@ -29418,6 +29430,7 @@ function scheduleHotspotAccessLoad(hotspots,delay=2600){
 }
 
 function hotspotAccessInfoHeavyV210(h){
+ return disabledParkingInfoV264(h);
  if(!h?.best)return {state:'unknown',label:'? brak danych',short:'?',detail:'Brak danych dostępności.',roadKm:Infinity,parkingKm:Infinity};
 
  if(h.best._blocked||inReserve(h.best)){
@@ -29509,6 +29522,7 @@ function hotspotAccessInfo(h){
  return out;
 }
 function hotspotAccessInfoFastV210(h){
+ return disabledParkingInfoV264(h);
  if(!h?.best)return {state:'unknown',label:'? brak danych',short:'?',detail:'Brak danych dostępności.',roadKm:Infinity,parkingKm:Infinity};
  ensureHotspotAccessInfoCacheV210();
  const key=hotspotAccessInfoCacheKeyV210(h);
@@ -30528,7 +30542,7 @@ function syncDraftPreview(){
 
 function addDraft(name,lat,lon,countryCode='PL'){
  countryCode=String(countryCode).toUpperCase();
- if(!['PL','DE'].includes(countryCode)){locatorHint.textContent='Wybierz adres w Polsce lub Niemczech.';return false;}
+ if(countryCode!=='PL'){locatorHint.textContent='Wybierz adres w Polsce.';return false;}
  if(!Number.isFinite(Number(lat))||!Number.isFinite(Number(lon)))return false;
  lat=Number(lat);lon=Number(lon);
  if(!Number.isFinite(lat)||!Number.isFinite(lon))return false;
@@ -30568,7 +30582,7 @@ async function geocodeSearch(){
    if(seq!==searchSeq)return;
    searchResults.innerHTML='';
    if(!rows.length){
-     searchResults.innerHTML='<div class="search-result">Brak wyników w Polsce lub Niemczech.</div>';
+     searchResults.innerHTML='<div class="search-result">Brak wyników w Polsce.</div>';
    }else{
      rows.forEach(x=>{
        const el=document.createElement('button');el.type='button';el.className='search-result';
@@ -31250,4 +31264,11 @@ restorePlaceLinkV257();window.addEventListener('hashchange',restorePlaceLinkV257
  container.addEventListener('gesturestart',event=>{
   if(!event.target.closest('input,textarea,select')&&event.cancelable)event.preventDefault();
  },{passive:false});
+})();
+
+// Prevent native page pinch over the analysis overlay; Leaflet retains map pinch.
+(()=>{
+ const style=document.createElement('style');style.textContent='html,body{touch-action:pan-x pan-y}';document.head.appendChild(style);
+ for(const name of ['touchstart','touchmove'])document.addEventListener(name,e=>{if(e.touches.length>1&&e.cancelable)e.preventDefault();},{passive:false});
+ document.addEventListener('gesturestart',e=>{if(e.cancelable)e.preventDefault();},{passive:false});
 })();

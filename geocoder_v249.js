@@ -15,7 +15,7 @@
      const p=f.properties||{},c=f.geometry?.coordinates;
      if(!Array.isArray(c)||!Number.isFinite(c[0])||!Number.isFinite(c[1]))return [];
      const countryCode=String(p.countrycode||'').toUpperCase();
-     if(!['PL','DE'].includes(countryCode))return [];
+     if(!countryCode==='PL')return [];
      const street=[p.street,p.housenumber].filter(Boolean).join(' ');
      const parts=[...new Set([p.name,street,p.postcode,p.city||p.town||p.village,p.county,p.state,p.country].filter(Boolean))];
      if(!parts.length)return [];
@@ -35,7 +35,7 @@
      const controller=new AbortController();
      const cancel=()=>controller.abort();
      signal?.addEventListener('abort',cancel,{once:true});
-     const timeout=setTimeout(()=>controller.abort(),12000);
+     const timeout=setTimeout(()=>controller.abort(),4000);
      try{
        const response=await fetch(url,{signal:controller.signal,headers:{Accept:'application/json'}});
        if(!response.ok){
@@ -60,20 +60,21 @@
    if(signal?.aborted)throw aborted();
    const controller=new AbortController(),cancel=()=>controller.abort();
    signal?.addEventListener('abort',cancel,{once:true});
-   const timer=setTimeout(cancel,10000);
+   const timer=setTimeout(cancel,5000);
    try{
-     const url='https://geocoding-api.open-meteo.com/v1/search?'+new URLSearchParams({name:q.trim(),count:'20',language:'pl',format:'json'});
+     const url='https://geocoding-api.open-meteo.com/v1/search?'+new URLSearchParams({name:q.trim(),count:'8',language:'pl',format:'json',countryCode:'PL'});
      const r=await fetch(url,{signal:controller.signal});
      if(!r.ok)throw new Error('Zapasowa wyszukiwarka: HTTP '+r.status);
      const data=await r.json();
      if(signal?.aborted)throw aborted();
-     return (data.results||[]).filter(x=>['PL','DE'].includes(x.country_code)&&Number.isFinite(x.latitude)&&Number.isFinite(x.longitude)).slice(0,8).map(x=>({lat:x.latitude,lon:x.longitude,countryCode:x.country_code,display_name:[x.name,x.admin1,x.country].filter(Boolean).join(', '),detail:'Miejscowość — Open-Meteo / GeoNames (wyszukiwanie zapasowe)'}));
+     return (data.results||[]).filter(x=>x.country_code==='PL'&&Number.isFinite(x.latitude)&&Number.isFinite(x.longitude)).slice(0,8).map(x=>({lat:x.latitude,lon:x.longitude,countryCode:x.country_code,display_name:[x.name,x.admin1,x.country].filter(Boolean).join(', '),detail:'Miejscowość — Open-Meteo / GeoNames (wyszukiwanie zapasowe)'}));
    }finally{clearTimeout(timer);signal?.removeEventListener('abort',cancel);}
  }
  global.mapGeocoderV249={
    search:async(q,options={})=>{
-     try{return await request('/api/',[['q',q.trim()],['limit','8'],['countrycode','PL'],['countrycode','DE']],options);}
-     catch(e){if(options.signal?.aborted||e.name==='AbortError')throw e;return townFallback(q,options);}
+     try{const rows=await townFallback(q,options);if(rows.length)return rows;}
+     catch(e){if(options.signal?.aborted||e.name==='AbortError')throw e;}
+     return request('/api/',[['q',q.trim()],['limit','8'],['countrycode','PL']],options);
    },
    reverse:async(lat,lon)=>{
      const rows=await request('/reverse/',{lat:String(lat),lon:String(lon),limit:'1'});

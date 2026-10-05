@@ -95,12 +95,12 @@ state.apply();
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 32 32%22><text y=%2226%22 font-size=%2226%22>🍄</text></svg>">
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
 <meta name="description" content="Interaktywna mapa potencjalnych siedlisk grzybów w Polsce na podstawie danych BDL, pogody, terenu i otwartych źródeł."/>
 <meta name="robots" content="index,follow"/>
 <meta name="referrer" content="strict-origin-when-cross-origin"/>
 
-<title>Mapa grzybowa — Polska i Niemcy</title>
+<title>Mapa grzybowa — Polska</title>
 <meta name="theme-color" content="#121713">
 
 
@@ -3628,7 +3628,7 @@ button.search-result{display:block;width:100%;text-align:left;color:#172019;back
     <div class="locator-search-row">
       <div class="locator-search-wrap">
         <input id="locationSearch" type="search" autocomplete="off"
-          placeholder="Aby zacząć: miasto, las lub miejscowość…" aria-label="Szukaj adresu w Polsce lub Niemczech">
+          placeholder="Aby zacząć: miasto, las lub miejscowość…" aria-label="Szukaj adresu w Polsce">
         <div id="searchResults" class="search-results"></div>
       </div>
       <button id="searchBtn" type="button">🔎</button>
@@ -3823,15 +3823,16 @@ button.search-result{display:block;width:100%;text-align:left;color:#172019;back
 
 <div id="nationalTopPanel" class="national-top-panel" aria-hidden="true"><div class="national-top-shell"><div class="national-top-head"><div><div class="national-top-kicker">Ranking krajowy BDL</div><div class="national-top-title">TOP Polska dla wybranych grzybów</div><div class="national-top-sub">Statyczny ranking modelowy: gospodarz + siedlisko + wiek drzewostanu. Pogoda „DZIŚ” nie zmienia kolejności krajowej.</div></div><button id="nationalTopClose" type="button" aria-label="Zamknij">×</button></div><div class="national-top-toolbar"><div id="nationalTopStatus" class="national-top-status">Wybierz gatunek w atlasie.</div><button id="nationalTopRebuild" type="button">Przelicz</button></div><div id="nationalTopBody" class="national-top-body"></div><div class="national-top-foot">„#1” oznacza najlepszy kandydat według statycznego modelu BDL wśród konkretnych wydzieleń. Przy identycznym siedlisku większe wydzielenie służy wyłącznie jako tie-breaker. To nie jest gwarancja aktualnych owocników.</div></div></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-<script src="geocoder_v249.js?v=261"></script>
+<script src="geocoder_v249.js?v=265"></script>
 <script src="assets/osmtogeojson-3.0.0-beta.5.js"></script>
 <script src="assets/proj4-2.12.1.js"></script>
-<script src="germany_sources_v253.js?v=253"></script>
-<script src="country_v252.js?v=253"></script>
+<script src="poland_geometry_v265.js?v=265"></script>
+<script src="country_v252.js?v=265"></script>
 <script src="poland_model_v255.js?v=255"></script>
 <footer id="legalFooterV259" aria-label="Źródła i licencje">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap contributors</a> · <a href="https://www.bdl.lasy.gov.pl/portal/" target="_blank" rel="noopener">BDL — LP / BULiGL</a> · <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo</a> / <a href="https://isric.org/explore/soilgrids/" target="_blank" rel="noopener">ISRIC SoilGrids</a> — CC BY 4.0 · <a href="assets/informacje-prawne.html" target="_blank" rel="noopener">Wszystkie źródła, licencje i prywatność</a></footer>
 <style>#legalFooterV259{position:fixed;bottom:0;left:0;right:0;z-index:1800;background:#000;color:#bbb;font:10px/1.4 system-ui;padding:5px 8px;box-sizing:border-box;text-align:center}#legalFooterV259 a{color:#ccc;text-decoration:underline}#legalFooterV259 a:focus-visible{outline:2px solid white}.mushroom-atlas{bottom:44px!important}.leaflet-bottom{bottom:44px!important}@media(max-width:700px){#legalFooterV259{font-size:10px;padding:4px 6px}.mushroom-atlas{bottom:64px!important}.leaflet-bottom{bottom:64px!important}}</style>
-<script src="map_app_v254.js?v=260"></script>
+<script src="poland_access_v262.js?v=264"></script>
+<script src="map_app_v254.js?v=265"></script>
 
 
 <script>
